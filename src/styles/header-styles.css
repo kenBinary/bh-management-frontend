@@ -1,0 +1,21 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+nav > ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+nav > ul > li {
+  padding: 0.3rem;
+}
+nav > button {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=header-styles.css.map */
