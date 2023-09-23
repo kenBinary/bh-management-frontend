@@ -1,0 +1,51 @@
+* {
+  outline: 1px solid black;
+}
+
+.tenant-management {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 4fr;
+}
+.tenant-management > aside {
+  padding: 0.5rem;
+  grid-column: 1/2;
+  grid-row: 1/3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tenant-management > .tenant-info {
+  padding: 0.5rem;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  display: flex;
+  gap: 0.5rem;
+}
+.tenant-management > .tenant-info > img {
+  flex-grow: 1;
+}
+.tenant-management > .tenant-info > .tenant-details {
+  flex-grow: 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0.5rem;
+}
+.tenant-management > .tenant-extra-info {
+  padding: 0.5rem;
+}
+.tenant-management > .tenant-extra-info > select {
+  margin-bottom: 0.5rem;
+}
+.tenant-management > .tenant-extra-info > table {
+  display: block;
+  overflow-y: auto;
+}
+.tenant-management > .tenant-extra-info > table > tr {
+  display: flex;
+}
+.tenant-management > .tenant-extra-info > table > tr > * {
+  flex-grow: 1;
+}
+
+/*# sourceMappingURL=tenant-management-style.css.map */

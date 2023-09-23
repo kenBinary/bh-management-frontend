@@ -1,0 +1,49 @@
+*{
+    outline: 1px solid black;
+}
+.tenant-management{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 4fr;
+    > aside{
+        padding: .5rem;
+        grid-column: 1/2;
+        grid-row: 1/3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    > .tenant-info{
+        padding: .5rem;
+        grid-column: 2/3;
+        grid-row: 1/2;
+        display: flex;
+        gap: .5rem;
+        > img{
+            flex-grow: 1;
+
+        }
+        > .tenant-details{
+            flex-grow: 5;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: .5rem;
+        }
+    }
+    > .tenant-extra-info{
+        padding: .5rem;
+        > select{
+            margin-bottom: .5rem;
+        }
+        > table{
+            display: block;
+            overflow-y: auto;
+            > tr{
+                display: flex;
+                > * {
+                    flex-grow: 1;
+                }
+            }
+        }
+    }
+}
