@@ -1,4 +1,5 @@
 {
+  "homepage": "https://thennek0.github.io/bh-management-frontend",
   "name": "bh-management-frontend",
   "private": true,
   "version": "0.0.0",
@@ -13,7 +14,8 @@
   "dependencies": {
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import NavBar from './components/NavBar'
 import './styles/header-styles.css';
 import Dashboard from './components/Dashboard';
@@ -14,11 +15,17 @@ import './styles/room-management-style.css'
 function App() {
   return (
     <>
-    <NavBar></NavBar>
-    <Dashboard></Dashboard>
-    {/* <RoomManagement></RoomManagement> */}
-    {/* <TenantManagement></TenantManagement> */}
-    {/* <PaymentManagement></PaymentManagement> */}
+      <NavBar></NavBar>
+      <Routes>
+        <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+        <Route path="/rooms" element={<RoomManagement></RoomManagement>}></Route>
+        <Route path="/tenants" element={<TenantManagement></TenantManagement>}></Route>
+        <Route path="/payments" element={<PaymentManagement></PaymentManagement>}></Route>
+      </Routes>
+      {/* <Dashboard></Dashboard> */}
+      {/* <RoomManagement></RoomManagement> */}
+      {/* <TenantManagement></TenantManagement> */}
+      {/* <PaymentManagement></PaymentManagement> */}
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function NavBar() {
     return (
         <nav>
@@ -7,20 +8,28 @@ export default function NavBar() {
             </div>
             <ul>
                 <li>
-                    <img src="./src/assets/nav-bar/dashboard.svg" alt="system logo" />
-                    Dashboard
+                    <Link to="/dashboard">
+                        <img src="./src/assets/nav-bar/dashboard.svg" alt="system logo" />
+                        Dashboard
+                    </Link>
                 </li>
                 <li>
-                    <img src="./src/assets/nav-bar/room.svg" alt="system logo" />
-                    Rooms
+                    <Link to="/rooms">
+                        <img src="./src/assets/nav-bar/room.svg" alt="system logo" />
+                        Rooms
+                    </Link>
                 </li>
                 <li>
-                    <img src="./src/assets/nav-bar/tenants.svg" alt="system logo" />
-                    Tenants
+                    <Link to="/tenants">
+                        <img src="./src/assets/nav-bar/tenants.svg" alt="system logo" />
+                        Tenants
+                    </Link>
                 </li>
                 <li>
-                    <img src="./src/assets/nav-bar/payments.svg" alt="system logo" />
-                    Payments
+                    <Link to="/payments">
+                        <img src="./src/assets/nav-bar/payments.svg" alt="system logo" />
+                        Payments
+                    </Link>
                 </li>
             </ul>
             <div className="user-actions">

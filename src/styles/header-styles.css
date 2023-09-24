@@ -29,10 +29,16 @@ nav > ul > li {
   padding: 0.8rem;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
+}
+nav > ul > li > a {
   display: flex;
+  gap: 0.2rem;
   justify-content: center;
   align-items: center;
-  gap: 0.2rem;
+  text-decoration: none;
+  color: inherit;
+  margin: 0px;
+  padding: 0px;
 }
 nav > ul > li img {
   height: 20px;
