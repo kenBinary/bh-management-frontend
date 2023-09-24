@@ -5,6 +5,8 @@ import Dashboard from './components/Dashboard';
 import './styles/dashboard-style.css';
 import TenantManagement from './components/TenantManagement';
 import './styles/tenant-management-style.css'
+import PaymentManagement from './components/PaymentManagement';
+import './styles/payment-management-style.css';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,8 +14,9 @@ function App() {
   return (
     <>
     <NavBar></NavBar>
+    <PaymentManagement></PaymentManagement>
     {/* <Dashboard></Dashboard> */}
-    <TenantManagement></TenantManagement>
+    {/* <TenantManagement></TenantManagement> */}
     </>
   )
 }

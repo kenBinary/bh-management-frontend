@@ -1,0 +1,33 @@
+.payment-management {
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 5fr 2fr;
+  gap: 0.5rem;
+}
+.payment-management > .upcoming-dues {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+.payment-management > .upcoming-dues > table {
+  display: block;
+  overflow-y: auto;
+}
+.payment-management > .upcoming-dues > table > tr {
+  display: flex;
+}
+.payment-management > .upcoming-dues > table > tr > * {
+  flex-grow: 1;
+}
+.payment-management > .recent-payments > table {
+  display: block;
+  overflow-y: auto;
+}
+.payment-management > .recent-payments > table > tr {
+  display: flex;
+}
+.payment-management > .recent-payments > table > tr > * {
+  flex-grow: 1;
+}
+
+/*# sourceMappingURL=payment-management-style.css.map */
