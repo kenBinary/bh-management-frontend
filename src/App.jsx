@@ -7,6 +7,9 @@ import TenantManagement from './components/TenantManagement';
 import './styles/tenant-management-style.css'
 import PaymentManagement from './components/PaymentManagement';
 import './styles/payment-management-style.css';
+import RoomManagement from './components/RoomManagement';
+import './styles/room-management-style.css'
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,7 +17,8 @@ function App() {
   return (
     <>
     <NavBar></NavBar>
-    <PaymentManagement></PaymentManagement>
+    <RoomManagement></RoomManagement>
+    {/* <PaymentManagement></PaymentManagement> */}
     {/* <Dashboard></Dashboard> */}
     {/* <TenantManagement></TenantManagement> */}
     </>
