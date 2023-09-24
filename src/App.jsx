@@ -11,13 +11,12 @@ import './styles/payment-management-style.css';
 import RoomManagement from './components/RoomManagement';
 import './styles/room-management-style.css'
 
-
 function App() {
   return (
     <>
       <NavBar></NavBar>
       <Routes>
-        <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+        <Route path="/" element={<Dashboard></Dashboard>}></Route>
         <Route path="/rooms" element={<RoomManagement></RoomManagement>}></Route>
         <Route path="/tenants" element={<TenantManagement></TenantManagement>}></Route>
         <Route path="/payments" element={<PaymentManagement></PaymentManagement>}></Route>

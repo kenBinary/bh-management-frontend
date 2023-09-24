@@ -8,12 +8,12 @@ import { BrowserRouter, HashRouter } from 'react-router-dom';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     {/* <App></App> */}
-    <BrowserRouter>
+    {/* <BrowserRouter>
       <App />
-    </BrowserRouter>
+    </BrowserRouter> */}
     {/* for gh pages */}
-    {/* <HashRouter>
+    <HashRouter>
       <App />
-    </HashRouter> */}
+    </HashRouter>
   </React.StrictMode>,
 )
