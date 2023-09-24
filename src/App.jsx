@@ -12,15 +12,13 @@ import './styles/room-management-style.css'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
     <NavBar></NavBar>
-    <RoomManagement></RoomManagement>
-    {/* <PaymentManagement></PaymentManagement> */}
-    {/* <Dashboard></Dashboard> */}
+    <Dashboard></Dashboard>
+    {/* <RoomManagement></RoomManagement> */}
     {/* <TenantManagement></TenantManagement> */}
+    {/* <PaymentManagement></PaymentManagement> */}
     </>
   )
 }

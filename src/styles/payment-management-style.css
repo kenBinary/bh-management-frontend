@@ -4,6 +4,7 @@
   grid-template-rows: 1fr;
   grid-template-columns: 5fr 2fr;
   gap: 0.5rem;
+  height: 92%;
 }
 .payment-management > .upcoming-dues {
   grid-column: 1/2;

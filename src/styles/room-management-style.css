@@ -4,6 +4,7 @@
   grid-template-columns: 2fr 8fr;
   grid-template-rows: 2fr 6fr;
   gap: 0.5rem;
+  height: 92%;
 }
 .room-management > * {
   outline: 1px solid black;

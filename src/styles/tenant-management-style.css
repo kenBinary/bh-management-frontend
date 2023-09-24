@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 4fr;
+  height: 92%;
 }
 .tenant-management > aside {
   padding: 0.5rem;
