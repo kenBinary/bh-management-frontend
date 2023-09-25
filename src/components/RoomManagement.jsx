@@ -32,6 +32,7 @@ export default function RoomManagement() {
             </div>
             <div className="room-list">
                 <h3>ROOM LIST</h3>
+                {}
                 <div className="room-card">
                     <img src={singleBed} alt="room-image" />
                     <div className="room-details">

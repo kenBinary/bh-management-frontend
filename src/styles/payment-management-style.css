@@ -1,34 +1,100 @@
 .payment-management {
   padding: 1rem;
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 5fr 2fr;
-  gap: 0.5rem;
   height: 92%;
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  grid-template-rows: 6fr 4fr;
+  gap: 0.5rem;
 }
 .payment-management > .upcoming-dues {
+  overflow-y: hidden;
   grid-column: 1/2;
   grid-row: 1/2;
+  height: 100%;
+  display: block;
 }
 .payment-management > .upcoming-dues > table {
   display: block;
-  overflow-y: auto;
+  overflow-y: hidden;
+  height: 100%;
 }
-.payment-management > .upcoming-dues > table > tr {
-  display: flex;
-}
-.payment-management > .upcoming-dues > table > tr > * {
-  flex-grow: 1;
-}
-.payment-management > .recent-payments > table {
+.payment-management > .upcoming-dues > table > tbody,
+.payment-management > .upcoming-dues > table thead {
   display: block;
   overflow-y: auto;
 }
-.payment-management > .recent-payments > table > tr {
+.payment-management > .upcoming-dues > table > tbody > tr,
+.payment-management > .upcoming-dues > table thead > tr {
   display: flex;
 }
-.payment-management > .recent-payments > table > tr > * {
+.payment-management > .upcoming-dues > table > tbody > tr > *,
+.payment-management > .upcoming-dues > table thead > tr > * {
   flex-grow: 1;
+}
+.payment-management > .upcoming-dues > table > tbody > tr > td,
+.payment-management > .upcoming-dues > table thead > tr > td {
+  padding: 0.5rem;
+  background-color: #eeeeee;
+}
+.payment-management > .upcoming-dues > table > thead {
+  background-color: #00adb5;
+  padding: 0.5rem;
+  color: #eeeeee;
+  font-size: 1.1rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.payment-management > .upcoming-dues > table > tbody {
+  height: 100%;
+  overflow-y: auto;
+}
+.payment-management > .upcoming-dues > h3 {
+  font-size: 1.3rem;
+}
+.payment-management > .recent-payments {
+  height: 100%;
+  display: block;
+  grid-column: 1/2;
+  grid-row: 2/3;
+  overflow-y: hidden;
+}
+.payment-management > .recent-payments > table {
+  display: block;
+  overflow-y: hidden;
+  height: 100%;
+}
+.payment-management > .recent-payments > table > tbody,
+.payment-management > .recent-payments > table thead {
+  display: block;
+  overflow-y: auto;
+}
+.payment-management > .recent-payments > table > tbody > tr,
+.payment-management > .recent-payments > table thead > tr {
+  display: flex;
+}
+.payment-management > .recent-payments > table > tbody > tr > *,
+.payment-management > .recent-payments > table thead > tr > * {
+  flex-grow: 1;
+}
+.payment-management > .recent-payments > table > tbody > tr > td,
+.payment-management > .recent-payments > table thead > tr > td {
+  padding: 0.5rem;
+  background-color: #eeeeee;
+}
+.payment-management > .recent-payments > table > thead {
+  background-color: #00adb5;
+  padding: 0.5rem;
+  color: #eeeeee;
+  font-size: 1.1rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.payment-management > .recent-payments > table > tbody {
+  height: 100%;
+  overflow-y: auto;
+}
+.payment-management > .recent-payments > h3 {
+  font-size: 1.3rem;
 }
 
 /*# sourceMappingURL=payment-management-style.css.map */

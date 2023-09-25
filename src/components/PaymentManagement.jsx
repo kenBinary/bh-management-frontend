@@ -2,32 +2,264 @@ export default function PaymentManagement() {
     return (
         <section className="payment-management">
             <div className="upcoming-dues">
-                <p>Upcoming Dues</p>
+                <h3>Upcoming Dues</h3>
                 <table>
-                    <tr>
-                        <th>some heading</th>
-                        <th>some heading</th>
-                    </tr>
-                    <tr>
-                        <td>some data</td>
-                        <td>some data</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>some heading</th>
+                            <th>some heading</th>
+                        </tr>
+                    </thead>
+                    {/* <tbody>
+                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>
+                    </tbody> */}
+                    <tbody>
+                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>
+                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <div className="payment-analytics">
                 payment analytics
             </div>
             <div className="recent-payments">
-                <p>Recent Payments</p>
+                <h3>Recent Payments</h3>
                 <table>
-                    <tr>
-                        <th>some heading</th>
-                        <th>some heading</th>
-                    </tr>
-                    <tr>
-                        <td>some data</td>
-                        <td>some data</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>some heading</th>
+                            <th>some heading</th>
+                        </tr>
+                    </thead>
+                    {/* <tbody>
+                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>
+                    </tbody> */}
+                    <tbody>
+                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>
+                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>                        <tr>
+                            <td>some data</td>
+                            <td>some data</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <div className="paid-analytics">

@@ -1,34 +1,69 @@
-.payment-management {
-    padding: 1rem;
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 5fr 2fr;
-    gap: 0.5rem;
-    > .upcoming-dues {
-        grid-column: 1/2;
-        grid-row: 1/2;
-        > table {
+$dominant-color: #00adb5;
+$secondary-color: #eeeeee;
+$secondary-color-2: #f3f3f3;
+$accent-color: #393e46;
+$accent-color-2: #393e46;
+@mixin table-style {
+    > table {
+        display: block;
+        overflow-y: hidden;
+        height: 100%;
+        > tbody,
+        thead {
             display: block;
             overflow-y: auto;
             > tr {
                 display: flex;
                 > * {
                     flex-grow: 1;
+                }
+                > td {
+                    padding: 0.5rem;
+                    background-color: $secondary-color;
                 }
             }
         }
+        > thead {
+            background-color: $dominant-color;
+            padding: 0.5rem;
+            color: $secondary-color;
+            font-size: 1.1rem;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        > tbody {
+            height: 100%;
+            overflow-y: auto;
+        }
+    }
+}
+.payment-management {
+    padding: 1rem;
+    height: 92%;
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+    grid-template-rows: 6fr 4fr;
+    gap: 0.5rem;
+    > .upcoming-dues {
+        overflow-y: hidden;
+        grid-column: 1/2;
+        grid-row: 1/2;
+        height: 100%;
+        display: block;
+        @include table-style;
+        > h3 {
+            font-size: 1.3rem;
+        }
     }
     > .recent-payments {
-
-        > table {
-            display: block;
-            overflow-y: auto;
-            > tr {
-                display: flex;
-                > * {
-                    flex-grow: 1;
-                }
-            }
+        height: 100%;
+        display: block;
+        grid-column: 1/2;
+        grid-row: 2/3;
+        overflow-y: hidden;
+        @include table-style;
+        > h3 {
+            font-size: 1.3rem;
         }
     }
 }
