@@ -85,11 +85,13 @@
 }
 .tenant-management > .tenant-extra-info > table > tbody > tr,
 .tenant-management > .tenant-extra-info > table thead > tr {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 }
 .tenant-management > .tenant-extra-info > table > tbody > tr > *,
 .tenant-management > .tenant-extra-info > table thead > tr > * {
   flex-grow: 1;
+  flex-shrink: 1;
 }
 .tenant-management > .tenant-extra-info > table > tbody > tr > td,
 .tenant-management > .tenant-extra-info > table thead > tr > td {

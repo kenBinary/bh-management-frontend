@@ -46,7 +46,6 @@ $accent-color-2: #393e46;
         border-bottom: 2px solid $dominant-color;
         color: $accent-color;
         > img {
-            // flex-grow: 1;
             height: 180px;
             aspect-ratio: 1/1;
         }
@@ -85,10 +84,23 @@ $accent-color-2: #393e46;
             thead {
                 display: block;
                 overflow-y: auto;
+                // > tr {
+                //     display: flex;
+                //     > * {
+                //         flex-grow: 1;
+                //         flex-shrink: 1;
+                //     }
+                //     > td {
+                //         padding: 0.5rem;
+                //         background-color: $secondary-color;
+                //     }
+                // }
                 > tr {
-                    display: flex;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
                     > * {
                         flex-grow: 1;
+                        flex-shrink: 1;
                     }
                     > td {
                         padding: 0.5rem;
@@ -104,7 +116,7 @@ $accent-color-2: #393e46;
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
             }
-            >tbody{
+            > tbody {
                 height: 100%;
                 overflow-y: auto;
             }
