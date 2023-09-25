@@ -1,6 +1,19 @@
 import singleBed from "/room-management/single-bed.png"
 import doubleBed from "/room-management/double-bed.png"
-export default function RoomManagement() {
+import RoomCard from "./RoomCard";
+import { useEffect, useState } from "react";
+function RoomManagement() {
+    let [roomList, setRoomList] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:3000/room", {
+            method: "GET"
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            setRoomList(data);
+        });
+    }, []);
+
     return (
         <section className="room-management">
             <div className="room-filters">
@@ -32,23 +45,11 @@ export default function RoomManagement() {
             </div>
             <div className="room-list">
                 <h3>ROOM LIST</h3>
-                {}
-                <div className="room-card">
-                    <img src={singleBed} alt="room-image" />
-                    <div className="room-details">
-                        <h3>Single Room</h3>
-                        <div className="room-info">
-                            <p>Room Number: 14</p>
-                            <p>Room Capacity: 1 </p>
-                            <p>Room Status: Occupied</p>
-                            <p>Room Price: 2500.00 php</p>
-                        </div>
-                        <div className="room-actions">
-                            <button>Assign a Tenant</button>
-                            <button>Remove a Tenant</button>
-                        </div>
-                    </div>
-                </div>
+                {
+                    roomList.map((element) => {
+                        return <RoomCard key={element.room_number} roomImage={[singleBed,doubleBed]} roomName={element.room_type} roomNumber={element.room_number} roomType={element.room_type} roomStatus={element.room_status} roomFee={element.room_fee}></RoomCard>
+                    })
+                }
             </div>
             <div className="room-analytics">
                 room analytics
@@ -56,3 +57,4 @@ export default function RoomManagement() {
         </section>
     )
 }
+export default RoomManagement;
