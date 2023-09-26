@@ -17,6 +17,7 @@ export default function RoomCard({ removeTenant, togglePopUp, popUpType, onAssig
                     <button id="assign-button" onClick={(e) => {
                         onAssign(roomType, roomNumber, roomFee);
                         popUpType(e.target.id);
+                        togglePopUp();
                     }}>Assign a Tenant</button>
                     <button id="remove-button" onClick={(e) => {
                         removeTenant(roomNumber)
