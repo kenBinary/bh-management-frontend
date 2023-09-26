@@ -115,6 +115,9 @@
 .room-management > .room-list > .test-div {
   height: 100%;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3rem;
 }
 .room-management > .room-list > .test-div > .room-card {
   display: flex;

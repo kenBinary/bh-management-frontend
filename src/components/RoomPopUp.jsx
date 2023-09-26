@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
-export default function RoomPopUp({ removeTenant, popUpType, roomInfo, isActive, togglePopUp }) {
+export default function RoomPopUp({ popUpType, roomInfo, isActive, togglePopUp }) {
     let [tenantList, setTenantList] = useState([]);
+    const tenantInfo = {
+        room: "0",
+        id: "0",
+        internet: false
+    }
+    tenantInfo.room = roomInfo.roomNumber;
     useEffect(() => {
         fetch("http://localhost:3000/tenant", {
             method: "GET"
@@ -10,6 +16,21 @@ export default function RoomPopUp({ removeTenant, popUpType, roomInfo, isActive,
             setTenantList(data)
         });
     }, [])
+    function assignTenant(roomNumber, tenantId, internetTrue) {
+        fetch("http://localhost:3000/room/assign-room", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                roomNumber: roomNumber,
+                tenantId: tenantId,
+                internetTrue: internetTrue
+            })
+        }).catch((error) => {
+            console.log(error)
+        });
+    }
     if (popUpType === "remove") {
         return (
             <div className={"pop-up-background" + ((isActive) ? " " : " hide")}>
@@ -41,7 +62,9 @@ export default function RoomPopUp({ removeTenant, popUpType, roomInfo, isActive,
                     <h3>Assign Tenant</h3>
                     <div>X</div>
                 </div>
-                <select name="tenant-name" id="tenant-list">
+                <select name="tenant-name" id="tenant-list" onChange={(e) => {
+                    tenantInfo.id = e.target.value;
+                }}>
                     {
                         tenantList.map((element) => {
                             return <option key={element.tenant_id} value={element.tenant_id}>{element.first_name + " " + element.last_name}</option>
@@ -61,12 +84,22 @@ export default function RoomPopUp({ removeTenant, popUpType, roomInfo, isActive,
                         <label htmlFor="electricity">Electricity</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="internet" id="internet" />
+                        <input type="checkbox" name="internet" id="internet" value={false} onChange={(e) => {
+                            if (tenantInfo.internet) {
+                                tenantInfo.internet = false;
+                            }
+                            else {
+                                tenantInfo.internet = true;
+                            }
+                        }} />
                         <label htmlFor="internet">Internet</label>
                     </div>
                 </div>
                 <div className="room-action">
-                    <input type="submit" value="Assign" />
+                    <input type="submit" value="Assign" onClick={() => {
+                        assignTenant(tenantInfo.room, tenantInfo.id, tenantInfo.internet);
+                        togglePopUp();
+                    }} />
                     <button type="button" onClick={togglePopUp}>Back</button>
                 </div>
             </div>
