@@ -1,4 +1,4 @@
-export default function RoomCard({ roomImage, roomName, roomNumber, roomType, roomStatus, roomFee }) {
+export default function RoomCard({ removeTenant, togglePopUp, popUpType, onAssign, roomImage, roomName, roomNumber, roomType, roomStatus, roomFee }) {
     let capacity = (roomType === "single room") ? "1" : "2";
     let status = (roomStatus) ? "Occupied" : "Vacant";
     let image = (roomType === "single room") ? roomImage[0] : roomImage[1];
@@ -14,8 +14,15 @@ export default function RoomCard({ roomImage, roomName, roomNumber, roomType, ro
                     <p>Room Price: {roomFee} php</p>
                 </div>
                 <div className="room-actions">
-                    <button>Assign a Tenant</button>
-                    <button>Remove a Tenant</button>
+                    <button id="assign-button" onClick={(e) => {
+                        onAssign(roomType, roomNumber, roomFee);
+                        popUpType(e.target.id);
+                    }}>Assign a Tenant</button>
+                    <button id="remove-button" onClick={(e) => {
+                        removeTenant(roomNumber)
+                        popUpType(e.target.id);
+                        togglePopUp();
+                    }}>Remove a Tenant</button>
                 </div>
             </div>
         </div>
