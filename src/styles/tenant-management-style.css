@@ -1,8 +1,66 @@
+.hide {
+  display: none !important;
+}
+
 .tenant-management {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 4fr;
   height: 92%;
+  position: relative;
+}
+.tenant-management > .pop-up-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(238, 238, 238, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eeeeee;
+}
+.tenant-management > .pop-up-container > .pop-up {
+  background-color: #393e46;
+  border: 1px solid #393e46;
+  row-gap: 1rem;
+  height: 55%;
+  aspect-ratio: 1/1;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.tenant-management > .pop-up-container > .pop-up > * {
+  flex: 1;
+  border-radius: 0.3rem;
+}
+.tenant-management > .pop-up-container > .pop-up > div:nth-of-type(1) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tenant-management > .pop-up-container > .pop-up > div:nth-of-type(2) {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  column-gap: 0.3rem;
+}
+.tenant-management > .pop-up-container > .pop-up > div:nth-of-type(2) > label {
+  user-select: none;
+}
+.tenant-management > .pop-up-container > .pop-up > div:nth-of-type(2) > input {
+  height: 20px;
+  aspect-ratio: 1/1;
+}
+.tenant-management > .pop-up-container > .pop-up > div:nth-of-type(3) {
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+}
+.tenant-management > .pop-up-container > .pop-up > div:nth-of-type(3) > button {
+  width: 25%;
 }
 .tenant-management > aside {
   padding: 0.5rem;
