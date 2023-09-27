@@ -4,6 +4,38 @@ $secondary-color-2: #f3f3f3;
 $accent-color: #393e46;
 $accent-color-2: #393e46;
 @mixin table-style {
+    // > table {
+    //     display: block;
+    //     overflow-y: hidden;
+    //     height: 100%;
+    //     > tbody,
+    //     thead {
+    //         display: block;
+    //         overflow-y: auto;
+    //         > tr {
+    //             display: flex;
+    //             > * {
+    //                 flex-grow: 1;
+    //             }
+    //             > td {
+    //                 padding: 0.5rem;
+    //                 background-color: $secondary-color;
+    //             }
+    //         }
+    //     }
+    //     > thead {
+    //         background-color: $dominant-color;
+    //         padding: 0.5rem;
+    //         color: $secondary-color;
+    //         font-size: 1.1rem;
+    //         border-top-left-radius: 5px;
+    //         border-top-right-radius: 5px;
+    //     }
+    //     > tbody {
+    //         height: 100%;
+    //         overflow-y: auto;
+    //     }
+    // }
     > table {
         display: block;
         overflow-y: hidden;
@@ -13,9 +45,11 @@ $accent-color-2: #393e46;
             display: block;
             overflow-y: auto;
             > tr {
-                display: flex;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
                 > * {
                     flex-grow: 1;
+                    flex-shrink: 1;
                 }
                 > td {
                     padding: 0.5rem;

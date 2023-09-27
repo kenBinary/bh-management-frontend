@@ -25,11 +25,13 @@
 }
 .payment-management > .upcoming-dues > table > tbody > tr,
 .payment-management > .upcoming-dues > table thead > tr {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 }
 .payment-management > .upcoming-dues > table > tbody > tr > *,
 .payment-management > .upcoming-dues > table thead > tr > * {
   flex-grow: 1;
+  flex-shrink: 1;
 }
 .payment-management > .upcoming-dues > table > tbody > tr > td,
 .payment-management > .upcoming-dues > table thead > tr > td {
@@ -70,11 +72,13 @@
 }
 .payment-management > .recent-payments > table > tbody > tr,
 .payment-management > .recent-payments > table thead > tr {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 }
 .payment-management > .recent-payments > table > tbody > tr > *,
 .payment-management > .recent-payments > table thead > tr > * {
   flex-grow: 1;
+  flex-shrink: 1;
 }
 .payment-management > .recent-payments > table > tbody > tr > td,
 .payment-management > .recent-payments > table thead > tr > td {
