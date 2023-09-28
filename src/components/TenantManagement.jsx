@@ -34,9 +34,8 @@ function TableSelector({ togglePopUp, updatePopUpType, tableType, updateTableTyp
     )
 }
 export default function TenantManagement() {
-    let [isActive, setIsActive] = useState(false);
+    let [didMount, setDidMount] = useState(false)
     let [tenantList, setTenantList] = useState([]);
-    let [tenantNecessity, setTenantNecessity] = useState([]);
     let [isLoading, setIsLoading] = useState(true);
     let [showPopUp, setShowPopUp] = useState(false);
     let [popUpType, setPopUpType] = useState("");
@@ -71,9 +70,46 @@ export default function TenantManagement() {
     function updatePopUpType(popUpType) {
         setPopUpType(popUpType);
     }
+    // initial render
+    useEffect(() => {
+        // let id;
+        let id = fetch("http://localhost:3000/tenant", {
+            method: "GET"
+        }).then(response => {
+            return response.json()
+        }).then((data) => {
+            if (data.length > 0) {
+                setTenantList(data);
+                id = data[0].tenant_id;
+                setTenantInfo(data[0]);
+                return data[0];
+            }
+            return false;
+        });
+        id.then((data) => {
+            if (data) {
+                fetch(`http://localhost:3000/necessity/${data.tenant_id}`, {
+                    method: "GET"
+                }).then(response => {
+                    return response.json()
+                }).then((data) => {
+                    setTableData(data)
+                });
+            }
+        });
+        // fetch(`http://localhost:3000/necessity/${selectedTenant.tenantId}`, {
+        //     method: "GET"
+        // }).then(response => {
+        //     return response.json()
+        // }).then((data) => {
+        //     setTableData(data)
+        // });
+        setIsLoading(false);
+        setDidMount(true);
+    }, []);
     // gets tenant information
     useEffect(() => {
-        if (isActive) {
+        if (didMount) {
             fetch(`http://localhost:3000/tenant/${selectedTenant.tenantId}`, {
                 method: "GET"
             }).then((response) => {
@@ -82,48 +118,69 @@ export default function TenantManagement() {
                 setTenantInfo(data[0]);
             });
         }
-        else {
-            setIsActive(true);
-        }
+        // if (isActive) {
+        //     fetch(`http://localhost:3000/tenant/${selectedTenant.tenantId}`, {
+        //         method: "GET"
+        //     }).then((response) => {
+        //         return response.json();
+        //     }).then((data) => {
+        //         setTenantInfo(data[0]);
+        //     });
+        // }
+        // else {
+        //     setIsActive(true);
+        // }
     }, [selectedTenant]);
+    // get tenant list
     useEffect(() => {
-        fetch("http://localhost:3000/necessity", {
-            method: "GET"
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            setTenantNecessity(data);
-            setIsLoading(false)
-        });
-    }, []);
-    useEffect(() => {
-        fetch("http://localhost:3000/tenant", {
-            method: "GET"
-        }).then(response => {
-            return response.json()
-        }).then((data) => {
-            setTenantList(data);
-        });
-    }, [showPopUp]);
-
-    // get table data
-    useEffect(() => {
-        if (isActive && tableType === "necessity") {
-            fetch(`http://localhost:3000/necessity/${selectedTenant.tenantId}`, {
+        if (didMount) {
+            fetch("http://localhost:3000/tenant", {
                 method: "GET"
             }).then(response => {
                 return response.json()
             }).then((data) => {
-                setTableData(data)
+                setTenantList(data);
+                console.log(tenantList)
             });
         }
-        else if (tableType === "upcoming-dues") {
-            console.log("dues")
+    }, [showPopUp]);
 
+    // get table data
+    useEffect(() => {
+        if (didMount) {
+            if (tableType === "necessity") {
+                fetch(`http://localhost:3000/necessity/${selectedTenant.tenantId}`, {
+                    method: "GET"
+                }).then(response => {
+                    return response.json()
+                }).then((data) => {
+                    setTableData(data)
+                });
+            }
+            else if (tableType === "upcoming-dues") {
+                console.log("dues")
+
+            }
+            else if (tableType === "payment-history") {
+                console.log("tanan")
+            }
         }
-        else if (tableType === "payment-history") {
-            console.log("tanan")
-        }
+        // if (tableType === "necessity") {
+        //     fetch(`http://localhost:3000/necessity/${selectedTenant.tenantId}`, {
+        //         method: "GET"
+        //     }).then(response => {
+        //         return response.json()
+        //     }).then((data) => {
+        //         setTableData(data)
+        //     });
+        // }
+        // else if (tableType === "upcoming-dues") {
+        //     console.log("dues")
+
+        // }
+        // else if (tableType === "payment-history") {
+        //     console.log("tanan")
+        // }
     }, [tableType, selectedTenant]);
 
     if (isLoading) {

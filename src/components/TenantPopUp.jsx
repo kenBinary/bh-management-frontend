@@ -153,11 +153,8 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                 }} placeholder="Enter Necessity Fee" required />
                 <div>
                     <button onClick={() => {
-                        // console.log(necessity)
-                        // console.log(selectedTenant.tenantId);
-                        // togglePopUp();
+
                         addNecessity(selectedTenant.tenantId, necessity.fee, necessity.type);
-                        // editTenant(selectedTenant.tenantId, selectedTenant.firstName, selectedTenant.lastName, selectedTenant.contact, selectedTenant.archiveStatus, selectedTenant.identification);
                     }}>
                         Add
                     </button>
