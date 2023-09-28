@@ -1,5 +1,5 @@
-function TableRow({ updateSelectedData, togglePopUp, dataID, tableData, tableHeadings }) {
-    
+function TableRow({ updateSelectedData, togglePopUp, dataID, tableData, tableHeadings, showDetail }) {
+
     return (
         <tr>
             {tableHeadings.map((element, index) => {
@@ -13,16 +13,25 @@ function TableRow({ updateSelectedData, togglePopUp, dataID, tableData, tableHea
                 }
                 return <td key={index}>{tableData[element]}</td>
             })}
-            <td>
+            {
+                showDetail &&
+                <td>
+                    <button onClick={() => {
+                        updateSelectedData(tableData[dataID]);
+                        togglePopUp();
+                    }}>details</button>
+                </td>
+            }
+            {/* <td>
                 <button onClick={() => {
                     updateSelectedData(tableData[dataID]);
                     togglePopUp();
                 }}>details</button>
-            </td>
+            </td> */}
         </tr>
     )
 }
-export default function TableData({ updateSelectedData, togglePopUp, tenantData }) {
+export default function TableData({ updateSelectedData, togglePopUp, tenantData, showDetail }) {
     let tableHeadings = [];
     let tableId = [];
     if (tenantData.length > 0) {
@@ -69,7 +78,7 @@ export default function TableData({ updateSelectedData, togglePopUp, tenantData 
             </thead>
             <tbody>
                 {tenantData.map((element, index) => {
-                    return <TableRow key={index} updateSelectedData={updateSelectedData} togglePopUp={togglePopUp} dataID={tableId[0]} tableHeadings={tableHeadings} tableData={element}></TableRow>
+                    return <TableRow showDetail={showDetail} key={index} updateSelectedData={updateSelectedData} togglePopUp={togglePopUp} dataID={tableId[0]} tableHeadings={tableHeadings} tableData={element}></TableRow>
                 })}
             </tbody>
         </table>
