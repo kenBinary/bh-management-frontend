@@ -7,6 +7,10 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
         contact: '',
         identification: ''
     });
+    let [necessity, setNecessity] = useState({
+        type: "",
+        fee: ""
+    });
     function addTenant(firstName, lastName, contactNumber, identificationNumber) {
         fetch("http://localhost:3000/tenant", {
             method: "POST",
@@ -21,6 +25,8 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
             })
         }).catch((error) => {
             console.log(error)
+        }).finally(() => {
+            togglePopUp();
         });
     }
     function editTenant(tenantId, pFirstName, pLastName, pContact, pArchiveStatus, pIdentification) {
@@ -39,13 +45,26 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
             })
         }).catch((error) => {
             console.log(error)
+        }).finally(() => {
+            togglePopUp();
         });
-        console.log(url)
-        console.log(pFirstName)
-        console.log(pLastName)
-        console.log(pContact)
-        console.log(pArchiveStatus)
-        console.log(pIdentification)
+    }
+    function addNecessity(tenantId, fee, type) {
+        fetch("http://localhost:3000/necessity", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                newId: String(tenantId),
+                newFee: String(fee),
+                newType: String(type),
+            })
+        }).catch((error) => {
+            console.log(error)
+        }).finally(() => {
+            togglePopUp();
+        });
     }
 
     if (popUpType === "edit") {
@@ -100,7 +119,6 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                     <div>
                         <button type="button" onClick={() => {
                             editTenant(selectedTenant.tenantId, selectedTenant.firstName, selectedTenant.lastName, selectedTenant.contact, selectedTenant.archiveStatus, selectedTenant.identification);
-                            togglePopUp();
                         }}>
                             Edit
                         </button>
@@ -112,6 +130,45 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                     </div>
                 </div>
             </div>
+        )
+    }
+    if (popUpType === "add-necessity") {
+        return (<div className={"pop-up-container" + ((showPopUp) ? " " : " hide")}>
+            <div className="pop-up add-necessity">
+                <div>
+                    <h3>Add Necessity</h3>
+                    <div>X</div>
+                </div>
+                <input type="text" onChange={(e) => {
+                    setNecessity({
+                        ...necessity,
+                        type: e.target.value
+                    })
+                }} placeholder="Enter Necessity Type" required />
+                <input type="number" onChange={(e) => {
+                    setNecessity({
+                        ...necessity,
+                        fee: e.target.value
+                    });
+                }} placeholder="Enter Necessity Fee" required />
+                <div>
+                    <button onClick={() => {
+                        // console.log(necessity)
+                        // console.log(selectedTenant.tenantId);
+                        // togglePopUp();
+                        addNecessity(selectedTenant.tenantId, necessity.fee, necessity.type);
+                        // editTenant(selectedTenant.tenantId, selectedTenant.firstName, selectedTenant.lastName, selectedTenant.contact, selectedTenant.archiveStatus, selectedTenant.identification);
+                    }}>
+                        Add
+                    </button>
+                    <button onClick={() => {
+                        togglePopUp();
+                    }}>
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
         )
     }
     return (
@@ -148,7 +205,6 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                 <div>
                     <button type="button" onClick={() => {
                         addTenant(addTenantInfo.firstName, addTenantInfo.lastName, addTenantInfo.contact, addTenantInfo.identification);
-                        togglePopUp();
                     }}>
                         Add
                     </button>

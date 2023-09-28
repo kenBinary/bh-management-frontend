@@ -8,6 +8,8 @@ export default function PaymentPopUp({ popUpType, selectedData, showPopUp, toggl
                 },
             }).catch((error) => {
                 console.log(error)
+            }).finally(() => {
+                togglePopUp();
             });
         }
         else if (popUpType === "utility-table") {
@@ -18,6 +20,8 @@ export default function PaymentPopUp({ popUpType, selectedData, showPopUp, toggl
                 },
             }).catch((error) => {
                 console.log(error)
+            }).finally(() => {
+                togglePopUp();
             });
         }
         else if (popUpType === "necessity-table") {
@@ -28,6 +32,8 @@ export default function PaymentPopUp({ popUpType, selectedData, showPopUp, toggl
                 },
             }).catch((error) => {
                 console.log(error)
+            }).finally(() => {
+                togglePopUp();
             });
         }
     }
@@ -61,9 +67,7 @@ export default function PaymentPopUp({ popUpType, selectedData, showPopUp, toggl
                 }
                 <div className="pop-up-actions">
                     <button onClick={() => {
-                        // console.log(selectedData);
                         payFee(popUpType, selectedData);
-                        togglePopUp();
                     }} type="button">Pay</button>
                     <button onClick={() => {
                         togglePopUp();

@@ -1,4 +1,5 @@
 function TableRow({ updateSelectedData, togglePopUp, dataID, tableData, tableHeadings }) {
+    
     return (
         <tr>
             {tableHeadings.map((element, index) => {
@@ -8,7 +9,6 @@ function TableRow({ updateSelectedData, togglePopUp, dataID, tableData, tableHea
                     let isFound = (found) ? true : false;
                     if (isFound) {
                         return <td key={tableData[dataID]}>{found[0]}</td>
-
                     }
                 }
                 return <td key={index}>{tableData[element]}</td>
@@ -23,29 +23,45 @@ function TableRow({ updateSelectedData, togglePopUp, dataID, tableData, tableHea
     )
 }
 export default function TableData({ updateSelectedData, togglePopUp, tenantData }) {
-    let dataKeys = Object.keys(tenantData[0]);
-    let tableHeadings = dataKeys.filter((element) => {
-        const regex = new RegExp('.*_id');
-        if (!(regex.test(element))) {
-            return true;
-        }
-    })
-    let tableId = dataKeys.filter((element) => {
-        const y = new RegExp('.*_id');
-        const x = new RegExp('^(?!.*tenant).*_id$');
-        if ((y.test(element))) {
-            if ((x.test(element))) {
+    let tableHeadings = [];
+    let tableId = [];
+    if (tenantData.length > 0) {
+        let dataKeys = Object.keys(tenantData[0]);
+        tableHeadings = dataKeys.filter((element) => {
+            const regex = new RegExp('.*_id');
+            if (!(regex.test(element))) {
                 return true;
             }
-        }
-    })
+        })
+        tableId = dataKeys.filter((element) => {
+            const y = new RegExp('.*_id');
+            const x = new RegExp('^(?!.*tenant).*_id$');
+            if ((y.test(element))) {
+                if ((x.test(element))) {
+                    return true;
+                }
+            }
+        })
+    }
+    else {
+        return (
+            <table>
+                <thead>
+                    <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        )
+    }
     return (
         <table>
             <thead>
                 <tr>
                     {
-                        tableHeadings.map((element) => {
-                            return <th>{element}</th>
+                        tableHeadings.map((element, index) => {
+                            return <th key={index}>{element}</th>
                         })
                     }
                     <th>Actions</th>
@@ -53,7 +69,7 @@ export default function TableData({ updateSelectedData, togglePopUp, tenantData 
             </thead>
             <tbody>
                 {tenantData.map((element, index) => {
-                    return <TableRow updateSelectedData={updateSelectedData} togglePopUp={togglePopUp} dataID={tableId[0]} tableHeadings={tableHeadings} tableData={element}></TableRow>
+                    return <TableRow key={index} updateSelectedData={updateSelectedData} togglePopUp={togglePopUp} dataID={tableId[0]} tableHeadings={tableHeadings} tableData={element}></TableRow>
                 })}
             </tbody>
         </table>

@@ -6,20 +6,17 @@ export default function PaymentManagement() {
     let [isLoading, setIsLoading] = useState(true);
     let [tableData, setTableData] = useState([]);
     let [showPopUp, setShowPopUp] = useState(false);
-    let [selectedData, setSelectedData] = useState("");
     let [selectedDataDetails, setSelectedDataDetails] = useState([]);
+    let [selectedData, setSelectedData] = useState("");
     let [popUpType, setPopUpType] = useState("");
     function togglePopUp() {
-        if (showPopUp) {
-            setShowPopUp(false);
-        } else {
-            setShowPopUp(true);
-        }
+        setShowPopUp((showPopUp) ? false : true);
     }
     function updateSelectedData(data) {
         setSelectedData(data);
     }
 
+    // gets all fees
     useEffect(() => {
         if (currentTable === "room-table") {
             // room fees
@@ -58,10 +55,11 @@ export default function PaymentManagement() {
                 setIsLoading(false)
             });
         }
-    }, [currentTable]);
+    }, [currentTable, showPopUp]);
 
+    // gets specific fee record
     useEffect(() => {
-        setIsLoading(true);
+        // setIsLoading(true);
         if (popUpType === "room-table") {
             fetch(`http://localhost:3000/roomfee/${selectedData}`, {
                 method: "GET"
@@ -81,7 +79,6 @@ export default function PaymentManagement() {
                 setSelectedDataDetails(data[0])
                 setIsLoading(false)
             });
-
         }
         else if (popUpType === "necessity-table") {
             fetch(`http://localhost:3000/necessityfee/${selectedData}`, {

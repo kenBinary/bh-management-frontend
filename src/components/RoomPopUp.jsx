@@ -77,6 +77,8 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
             })
         }).catch((error) => {
             console.log(error)
+        }).finally(() => {
+            togglePopUp();
         });
     }
     function removeTenant(roomNumber, tenantId) {
@@ -91,6 +93,8 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
             })
         }).catch((error) => {
             console.log(error)
+        }).finally(() => {
+            togglePopUp();
         });
     }
     if (popUpType === "remove") {
@@ -115,7 +119,6 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
                     <div className="room-action">
                         <button type="button" onClick={() => {
                             removeTenant(tenantRoom, tenantID);
-                            togglePopUp();
                         }}>Remove</button>
                         <button type="button" onClick={togglePopUp}>Back</button>
                     </div>
@@ -167,10 +170,7 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
                 </div>
                 <div className="room-action">
                     <button type="button" onClick={() => {
-                        // assignTenant(tenantInfo.room, tenantInfo.id, tenantInfo.internet);
-                        console.log(tenantID)
                         assignTenant(tenantRoom, tenantID, tenantInternet);
-                        togglePopUp();
                     }}>
                         Assign
                     </button>

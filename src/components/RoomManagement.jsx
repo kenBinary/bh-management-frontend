@@ -8,10 +8,6 @@ function RoomManagement() {
     let [selectedRoom, setSelectedRoom] = useState({});
     let [showPopUp, setShowPopUp] = useState(false);
     let [popUpType, setPopUpType] = useState("assign");
-    let [tenantFromRoom, setTenantFromRoom] = useState({
-        first_name: "",
-        last_name: ""
-    });
     const togglePopUp = () => {
         setShowPopUp((showPopUp) ? false : true);
     }
@@ -35,7 +31,7 @@ function RoomManagement() {
             roomPrice: cRoomPrice
         })
     }
-    // initializing list of rooms
+    // get list of rooms
     useEffect(() => {
         fetch("http://localhost:3000/room", {
             method: "GET"
@@ -44,7 +40,7 @@ function RoomManagement() {
         }).then((data) => {
             setRoomList(data);
         });
-    }, []);
+    }, [showPopUp]);
     // 
     return (
         <section className="room-management">
