@@ -14,10 +14,10 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                firstName: firstName,
-                lastName: lastName,
-                contactNum: contactNumber,
-                identificationNumber: identificationNumber
+                firstName: String(firstName),
+                lastName: String(lastName),
+                contactNum: String(contactNumber),
+                identificationNumber: String(identificationNumber)
             })
         }).catch((error) => {
             console.log(error)

@@ -1,10 +1,25 @@
 import { useState, useEffect } from "react";
 import TableData from "./TableData";
+import PaymentPopUp from "./PaymentPopUp";
 export default function PaymentManagement() {
     let [currentTable, setCurrentTable] = useState("room-table");
     let [isLoading, setIsLoading] = useState(true);
     let [tableData, setTableData] = useState([]);
-    // gets unpaid fees
+    let [showPopUp, setShowPopUp] = useState(false);
+    let [selectedData, setSelectedData] = useState("");
+    let [selectedDataDetails, setSelectedDataDetails] = useState([]);
+    let [popUpType, setPopUpType] = useState("");
+    function togglePopUp() {
+        if (showPopUp) {
+            setShowPopUp(false);
+        } else {
+            setShowPopUp(true);
+        }
+    }
+    function updateSelectedData(data) {
+        setSelectedData(data);
+    }
+
     useEffect(() => {
         if (currentTable === "room-table") {
             // room fees
@@ -13,7 +28,7 @@ export default function PaymentManagement() {
             }).then(response => {
                 return response.json();;
             }).then((data) => {
-                // setRoomFees(data);
+                setPopUpType("room-table")
                 setTableData(data);
                 setIsLoading(false)
             });
@@ -25,7 +40,7 @@ export default function PaymentManagement() {
             }).then(response => {
                 return response.json();;
             }).then((data) => {
-                // setUtilityFees(data);
+                setPopUpType("utility-table")
                 setTableData(data);
                 setIsLoading(false)
             });
@@ -38,17 +53,55 @@ export default function PaymentManagement() {
             }).then(response => {
                 return response.json();;
             }).then((data) => {
-                // setNecessityFees(data);
+                setPopUpType("necessity-table")
                 setTableData(data);
                 setIsLoading(false)
             });
         }
     }, [currentTable]);
+
+    useEffect(() => {
+        setIsLoading(true);
+        if (popUpType === "room-table") {
+            fetch(`http://localhost:3000/roomfee/${selectedData}`, {
+                method: "GET"
+            }).then(response => {
+                return response.json();;
+            }).then((data) => {
+                setSelectedDataDetails(data[0])
+                setIsLoading(false)
+            });
+        }
+        else if (popUpType === "utility-table") {
+            fetch(`http://localhost:3000/utilityfee/${selectedData}`, {
+                method: "GET"
+            }).then(response => {
+                return response.json();;
+            }).then((data) => {
+                setSelectedDataDetails(data[0])
+                setIsLoading(false)
+            });
+
+        }
+        else if (popUpType === "necessity-table") {
+            fetch(`http://localhost:3000/necessityfee/${selectedData}`, {
+                method: "GET"
+            }).then(response => {
+                return response.json();;
+            }).then((data) => {
+                setSelectedDataDetails(data[0])
+                setIsLoading(false)
+            });
+        }
+    }, [selectedData]);
+
+
     if (isLoading) {
         return (<div>...loading</div>)
     }
     return (
         <section className="payment-management">
+            <PaymentPopUp popUpType={popUpType} selectedData={selectedData} selectedDataDetails={selectedDataDetails} showPopUp={showPopUp} togglePopUp={togglePopUp}></PaymentPopUp>
             <div className="upcoming-dues">
                 <select onChange={(e) => {
                     setCurrentTable(e.target.value);
@@ -58,7 +111,7 @@ export default function PaymentManagement() {
                     <option value="necessity-table">Necessity</option>
                 </select>
                 <h3>Unpaid Payments</h3>
-                <TableData tenantData={tableData}></TableData>
+                <TableData updateSelectedData={updateSelectedData} togglePopUp={togglePopUp} tenantData={tableData}></TableData>
             </div>
             <div className="payment-analytics">
                 payment analytics

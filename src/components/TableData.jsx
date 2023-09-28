@@ -1,4 +1,4 @@
-function TableRow({ dataID, tableData, tableHeadings }) {
+function TableRow({ updateSelectedData, togglePopUp, dataID, tableData, tableHeadings }) {
     return (
         <tr>
             {tableHeadings.map((element, index) => {
@@ -15,13 +15,14 @@ function TableRow({ dataID, tableData, tableHeadings }) {
             })}
             <td>
                 <button onClick={() => {
-                    console.log(tableData[dataID])
+                    updateSelectedData(tableData[dataID]);
+                    togglePopUp();
                 }}>details</button>
             </td>
         </tr>
     )
 }
-export default function TableData({ tenantData }) {
+export default function TableData({ updateSelectedData, togglePopUp, tenantData }) {
     let dataKeys = Object.keys(tenantData[0]);
     let tableHeadings = dataKeys.filter((element) => {
         const regex = new RegExp('.*_id');
@@ -52,7 +53,7 @@ export default function TableData({ tenantData }) {
             </thead>
             <tbody>
                 {tenantData.map((element, index) => {
-                    return <TableRow dataID={tableId[0]} tableHeadings={tableHeadings} tableData={element}></TableRow>
+                    return <TableRow updateSelectedData={updateSelectedData} togglePopUp={togglePopUp} dataID={tableId[0]} tableHeadings={tableHeadings} tableData={element}></TableRow>
                 })}
             </tbody>
         </table>

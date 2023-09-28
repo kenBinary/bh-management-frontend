@@ -4,38 +4,6 @@ $secondary-color-2: #f3f3f3;
 $accent-color: #393e46;
 $accent-color-2: #393e46;
 @mixin table-style {
-    // > table {
-    //     display: block;
-    //     overflow-y: hidden;
-    //     height: 100%;
-    //     > tbody,
-    //     thead {
-    //         display: block;
-    //         overflow-y: auto;
-    //         > tr {
-    //             display: flex;
-    //             > * {
-    //                 flex-grow: 1;
-    //             }
-    //             > td {
-    //                 padding: 0.5rem;
-    //                 background-color: $secondary-color;
-    //             }
-    //         }
-    //     }
-    //     > thead {
-    //         background-color: $dominant-color;
-    //         padding: 0.5rem;
-    //         color: $secondary-color;
-    //         font-size: 1.1rem;
-    //         border-top-left-radius: 5px;
-    //         border-top-right-radius: 5px;
-    //     }
-    //     > tbody {
-    //         height: 100%;
-    //         overflow-y: auto;
-    //     }
-    // }
     > table {
         display: block;
         overflow-y: hidden;
@@ -71,6 +39,9 @@ $accent-color-2: #393e46;
         }
     }
 }
+.hide {
+    display: none !important;
+}
 .payment-management {
     padding: 1rem;
     height: 92%;
@@ -78,6 +49,55 @@ $accent-color-2: #393e46;
     grid-template-columns: 5fr 2fr;
     grid-template-rows: 6fr 4fr;
     gap: 0.5rem;
+    position: relative;
+    > .pop-up {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(238, 238, 238, 0.25);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $secondary-color;
+        > div {
+            width: 25%;
+            aspect-ratio: 1/1;
+            background-color: $accent-color-2;
+            border: 1px solid $accent-color;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.3rem;
+            cursor: default;
+            > h3 {
+                font-size: 1.3rem;
+                display: flex;
+                align-items: flex-end;
+            }
+            > * {
+                flex: 1;
+                font-size: 1.1rem;
+            }
+            > input {
+                cursor: default;
+            }
+            > .detail-title {
+                display: flex;
+                align-items: flex-end;
+            }
+            > .pop-up-actions {
+                display: flex;
+                justify-content: center;
+                column-gap: 0.5rem;
+                > button {
+                    width: 25%;
+                }
+            }
+        }
+    }
     > .upcoming-dues {
         overflow-y: hidden;
         grid-column: 1/2;
