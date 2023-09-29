@@ -10,7 +10,6 @@ function TableSelector({ togglePopUp, updatePopUpType, tableType, updateTableTyp
                     updateTableType(e.target.value);
                 }}>
                     <option value="necessity">Necessities</option>
-                    <option value="upcoming-dues">Upcoming Dues</option>
                     <option value="payment-history">Payment History</option>
                 </select>
 
@@ -27,7 +26,6 @@ function TableSelector({ togglePopUp, updatePopUpType, tableType, updateTableTyp
                 updateTableType(e.target.value);
             }}>
                 <option value="necessity">Necessities</option>
-                <option value="upcoming-dues">Upcoming Dues</option>
                 <option value="payment-history">Payment History</option>
             </select>
         </div>
@@ -161,12 +159,15 @@ export default function TenantManagement() {
                     setTableData(data)
                 });
             }
-            else if (tableType === "upcoming-dues") {
-                console.log("dues")
-
-            }
             else if (tableType === "payment-history") {
-                console.log("tanan")
+                // b57bd7ab-5dc9-11ee-9182-31dbb6fccc0c
+                fetch(`http://localhost:3000/payment/history/${selectedTenant.tenantId}`, {
+                    method: "GET"
+                }).then(response => {
+                    return response.json()
+                }).then((data) => {
+                    setTableData(data)
+                });
             }
         }
         // if (tableType === "necessity") {
@@ -177,10 +178,6 @@ export default function TenantManagement() {
         //     }).then((data) => {
         //         setTableData(data)
         //     });
-        // }
-        // else if (tableType === "upcoming-dues") {
-        //     console.log("dues")
-
         // }
         // else if (tableType === "payment-history") {
         //     console.log("tanan")
