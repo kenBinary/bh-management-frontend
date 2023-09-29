@@ -206,8 +206,14 @@ $accent-color-2: #393e46;
     > .room-analytics {
         grid-column: 1/2;
         grid-row: 2/3;
+        height: 100%;
         border: 1px solid $accent-color;
         border-radius: 5px;
         padding: 0.3rem;
+        display: flex;
+        flex-direction: column;
+        >div{
+            flex: 1;
+        }
     }
 }

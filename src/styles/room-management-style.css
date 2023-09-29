@@ -163,9 +163,15 @@
 .room-management > .room-analytics {
   grid-column: 1/2;
   grid-row: 2/3;
+  height: 100%;
   border: 1px solid #393e46;
   border-radius: 5px;
   padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+}
+.room-management > .room-analytics > div {
+  flex: 1;
 }
 
 /*# sourceMappingURL=room-management-style.css.map */
