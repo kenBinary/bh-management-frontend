@@ -1,6 +1,49 @@
 import { useState, useEffect } from "react";
 import TableData from "./TableData";
 import PaymentPopUp from "./PaymentPopUp";
+import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+
+
+function SimplePieChart({ data }) {
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+    return (
+        <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+                <Pie
+                    data={data}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    fill="#8884d8"
+                    label
+                >
+                    {data.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+            </PieChart>
+        </ResponsiveContainer>
+    );
+};
+const SimpleBarChart = ({ data, didMount }) => {
+    return (
+        <ResponsiveContainer width="100%" height="100%">
+            <BarChart width={400} height={300} data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis domain={[0, 'dataMax+500']} />
+                <Tooltip />
+                <Legend />
+                <Bar barSize={70} dataKey="revenue" fill="#8884d8" />
+            </BarChart>
+        </ResponsiveContainer>
+    );
+};
 export default function PaymentManagement() {
     let [didMount, setDidMount] = useState(false);
     let [currentTable, setCurrentTable] = useState("room-table");
@@ -10,6 +53,8 @@ export default function PaymentManagement() {
     let [selectedData, setSelectedData] = useState("");
     let [popUpType, setPopUpType] = useState("");
     let [recentPayments, setRecentPayments] = useState([]);
+    let [paidAnalyticsData, setPaidAnalyticsData] = useState([]);
+    let [paymentAnalyticsData, setPaymentAnalyticsData] = useState([]);
     // let [isLoading, setIsLoading] = useState(true);
     function togglePopUp() {
         setShowPopUp((showPopUp) ? false : true);
@@ -33,6 +78,23 @@ export default function PaymentManagement() {
             return response.json();;
         }).then((data) => {
             setRecentPayments(data);
+        });
+        // const today = new Date();
+        // const monthNumber = today.getMonth() + 1;
+        // const url = `http://localhost:3000/payment/analytics/paid-unpaid?month=${monthNumber}`;
+        fetch("http://localhost:3000/payment/analytics/paid-unpaid", {
+            method: "GET"
+        }).then(response => {
+            return response.json();;
+        }).then((data) => {
+            setPaidAnalyticsData(data);
+        });
+        fetch("http://localhost:3000/payment/analytics/payment-analytics", {
+            method: "GET"
+        }).then(response => {
+            return response.json();;
+        }).then((data) => {
+            setPaymentAnalyticsData(data);
         });
         setDidMount(true);
     }, []);
@@ -113,7 +175,6 @@ export default function PaymentManagement() {
             }
         }
     }, [selectedData]);
-
     // if (isLoading) {
     //     return (<div>...loading</div>)
     // }
@@ -131,15 +192,17 @@ export default function PaymentManagement() {
                 <h3>Unpaid Payments</h3>
                 <TableData showDetail={true} updateSelectedData={updateSelectedData} togglePopUp={togglePopUp} tenantData={tableData}></TableData>
             </div>
-            <div className="payment-analytics">
-                payment analytics
-            </div>
             <div className="recent-payments">
                 <h3>Recent Payments</h3>
                 <TableData showDetail={false} updateSelectedData={updateSelectedData} togglePopUp={togglePopUp} tenantData={recentPayments}></TableData>
             </div>
-            <div className="paid-analytics">
-                paid analytics
+            <div className="analytics-container">
+                <div className="paid-analytics">
+                    <SimplePieChart data={paidAnalyticsData}></SimplePieChart>
+                </div>
+                <div className="payment-analytics" >
+                    <SimpleBarChart didMount={didMount} data={paymentAnalyticsData}></SimpleBarChart>
+                </div>
             </div>
         </section>
     );

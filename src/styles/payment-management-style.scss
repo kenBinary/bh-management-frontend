@@ -120,4 +120,20 @@ $accent-color-2: #393e46;
             font-size: 1.3rem;
         }
     }
+    >.analytics-container{
+        grid-column: 2/3;
+        grid-row: 1/3;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        row-gap: 1rem;
+        >.paid-analytics{
+            height: 50%;
+            outline: 1px solid black;
+        }
+        >.payment-analytics{
+            height: 50%;
+            outline: 1px solid black;
+        }
+    }
 }

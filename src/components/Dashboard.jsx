@@ -1,4 +1,25 @@
-export default function Dashboard(params) {
+// import { PieChart } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
+
+const SimpleBarChart = ({ data }) => {
+    return (
+      <BarChart width={400} height={300} data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="value" fill="#8884d8" />
+      </BarChart>
+    );
+  };
+export default function Dashboard() {
+    const barChartData = [
+        { name: 'Category A', value: 25 },
+        { name: 'Category B', value: 30 },
+        { name: 'Category C', value: 45 },
+      ];
     return (
         <section className="dashboard">
             <div className="stat-summary">
@@ -19,7 +40,7 @@ export default function Dashboard(params) {
                     </tr>
                 </table>
                 <div className="occupancy-chart">
-                    some chart
+                    <SimpleBarChart data={barChartData}></SimpleBarChart>
                 </div>
             </div>
         </section>

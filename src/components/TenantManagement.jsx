@@ -79,6 +79,10 @@ export default function TenantManagement() {
             return response.json()
         }).then((data) => {
             if (data.length > 0) {
+                setSelectedTenant({
+                    ...selectedTenant,
+                    tenantId: data[0].tenant_id
+                });
                 setTenantList(data);
                 id = data[0].tenant_id;
                 setTenantInfo(data[0]);

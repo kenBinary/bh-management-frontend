@@ -139,13 +139,13 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                     <h3>Add Necessity</h3>
                     <div>X</div>
                 </div>
-                <input type="text" onChange={(e) => {
+                <input value={necessity.type} type="text" onChange={(e) => {
                     setNecessity({
                         ...necessity,
                         type: e.target.value
                     })
                 }} placeholder="Enter Necessity Type" required />
-                <input type="number" onChange={(e) => {
+                <input value={necessity.fee} type="number" onChange={(e) => {
                     setNecessity({
                         ...necessity,
                         fee: e.target.value
@@ -153,8 +153,11 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                 }} placeholder="Enter Necessity Fee" required />
                 <div>
                     <button onClick={() => {
-
                         addNecessity(selectedTenant.tenantId, necessity.fee, necessity.type);
+                        setNecessity({
+                            type: "",
+                            fee: ""
+                        });
                     }}>
                         Add
                     </button>
@@ -175,25 +178,25 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                     <h3>Add Tenant</h3>
                     <div>X</div>
                 </div>
-                <input type="text" onChange={(e) => {
+                <input type="text" value={addTenantInfo.firstName} onChange={(e) => {
                     setAddTenantInfo({
                         ...addTenantInfo,
                         firstName: e.target.value
                     });
-                }} placeholder="First Name" name="first-name" id="first-name" />
-                <input onChange={(e) => {
+                }} placeholder="First Name" id="first-name" />
+                <input value={addTenantInfo.lastName} onChange={(e) => {
                     setAddTenantInfo({
                         ...addTenantInfo,
                         lastName: e.target.value
                     });
                 }} type="text" placeholder="Last Name" name="last-name" id="last-name" />
-                <input onChange={(e) => {
+                <input value={addTenantInfo.contact} onChange={(e) => {
                     setAddTenantInfo({
                         ...addTenantInfo,
                         contact: e.target.value
                     });
                 }} type="number" placeholder="Contact Number" name="contact-number" id="contact-number" />
-                <input onChange={(e) => {
+                <input value={addTenantInfo.identification} onChange={(e) => {
                     setAddTenantInfo({
                         ...addTenantInfo,
                         identification: e.target.value
@@ -202,6 +205,12 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                 <div>
                     <button type="button" onClick={() => {
                         addTenant(addTenantInfo.firstName, addTenantInfo.lastName, addTenantInfo.contact, addTenantInfo.identification);
+                        setAddTenantInfo({
+                            firstName: '',
+                            lastName: '',
+                            contact: '',
+                            identification: ''
+                        });
                     }}>
                         Add
                     </button>

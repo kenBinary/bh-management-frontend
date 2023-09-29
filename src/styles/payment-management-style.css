@@ -153,5 +153,21 @@
 .payment-management > .recent-payments > h3 {
   font-size: 1.3rem;
 }
+.payment-management > .analytics-container {
+  grid-column: 2/3;
+  grid-row: 1/3;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.payment-management > .analytics-container > .paid-analytics {
+  height: 50%;
+  outline: 1px solid black;
+}
+.payment-management > .analytics-container > .payment-analytics {
+  height: 50%;
+  outline: 1px solid black;
+}
 
 /*# sourceMappingURL=payment-management-style.css.map */

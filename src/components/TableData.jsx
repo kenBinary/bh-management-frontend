@@ -73,7 +73,10 @@ export default function TableData({ updateSelectedData, togglePopUp, tenantData,
                             return <th key={index}>{element}</th>
                         })
                     }
-                    <th>Actions</th>
+                    {
+                        showDetail &&
+                        <th>Actions</th>
+                    }
                 </tr>
             </thead>
             <tbody>
