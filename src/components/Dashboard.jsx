@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { PieChart, Pie, Cell, Label } from 'recharts';
+import collectionIcon from "/dashboard/collection.svg"
+import revenueIcon from "/dashboard/revenue.svg"
+import tenantIcon from "/dashboard/tenant.svg"
+import vacantIcon from "/dashboard/vacant.svg"
+
 
 
 const SimpleLineChart = ({ data }) => {
@@ -50,17 +55,13 @@ export default function Dashboard() {
     let [totalTenants, setTotalTenants] = useState([]);
     let [vacantRooms, setVacantRooms] = useState(0)
     let [rentCollection, setRentCollection] = useState(0)
+    let [roomStatusData, setRoomStatusData] = useState([]);
     const lineChartData = [
         { name: 'Jan', value: 25 },
         { name: 'Feb', value: 30 },
         { name: 'Mar', value: 45 },
         { name: 'Apr', value: 28 },
         { name: 'May', value: 35 },
-    ];
-    const pieChartData = [
-        { name: 'Category A', value: 25 },
-        { name: 'Category B', value: 30 },
-        { name: 'Category C', value: 45 },
     ];
     // initial render
     useEffect(() => {
@@ -95,6 +96,13 @@ export default function Dashboard() {
             console.log(data)
             setRentCollection(data);
         });
+        fetch("http://localhost:3000/room/status-analytics", {
+            method: "GET"
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            setRoomStatusData(data);
+        });
         setDidMount(true);
     }, [])
     if (!didMount) {
@@ -114,7 +122,7 @@ export default function Dashboard() {
                         ₱ {monthlyRevenue.revenue}
                     </div>
                     <div>
-                        <img src="" alt="" />
+                        <img className="icon" src={revenueIcon} alt="" />
                     </div>
                 </div>
                 <div>
@@ -125,7 +133,7 @@ export default function Dashboard() {
                         {totalTenants.total_tenants}
                     </div>
                     <div>
-                        <img src="" alt="" />
+                        <img className="icon" src={tenantIcon} alt="" />
                     </div>
                 </div>
                 <div>
@@ -136,27 +144,29 @@ export default function Dashboard() {
                         {rentCollection.total}
                     </div>
                     <div>
-                        <img src="" alt="" />
+                        <img className="icon" src={collectionIcon} alt="" />
                     </div>
                 </div>
                 <div>
                     <div>
-                        Vacant Rooms:
+                        Vacant Rooms
                     </div>
                     <div>
                         {vacantRooms.total_vacant}
                     </div>
                     <div>
-                        <img src="" alt="" />
+                        <img className="icon" src={vacantIcon} alt="" />
                     </div>
                 </div>
             </div>
             <div className="tenant-room-analytics">
                 <div className="line-chart">
+                    <h3>Payment Overview</h3>
                     <SimpleLineChart data={lineChartData}></SimpleLineChart>
                 </div>
                 <div className="occupancy-chart">
-                    <SimplePieChart data={pieChartData}></SimplePieChart>
+                    <h3>Room Overview</h3>
+                    <SimplePieChart data={roomStatusData}></SimplePieChart>
                 </div>
             </div>
         </section>

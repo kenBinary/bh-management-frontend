@@ -9,6 +9,7 @@ $accent-color-2: #393e46;
     flex-direction: column;
     row-gap: 1rem;
     height: 92%;
+    color: $accent-color;
     > .stat-summary {
         color: $accent-color;
         display: flex;
@@ -38,6 +39,14 @@ $accent-color-2: #393e46;
             > :nth-child(3) {
                 grid-column: 2/3;
                 grid-row: 1/3;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                > .icon {
+                    aspect-ratio: 1/1;
+                    height: 85%;
+                    filter: invert(42%) sepia(95%) saturate(1870%) hue-rotate(151deg) brightness(98%) contrast(102%);
+                }
             }
         }
     }
@@ -46,20 +55,44 @@ $accent-color-2: #393e46;
         height: 100%;
         column-gap: 0.5rem;
         > .line-chart {
+            border: 2px solid $dominant-color;
+            border-radius: 3px;
             padding: 1rem;
+            padding-left: 0px !important;
             box-sizing: border-box;
             flex-basis: 70%;
             display: block;
             flex-shrink: 0;
             flex-grow: 0;
+            display: flex;
+            flex-direction: column;
+            > h3 {
+                height: 8%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            > :nth-child(2) {
+                height: 92%;
+            }
         }
         > .occupancy-chart {
+            border: 2px solid $dominant-color;
+            border-radius: 3px;
             flex-basis: 30%;
             flex-shrink: 0;
             flex-grow: 0;
-        }
-        > * {
-            outline: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            > h3 {
+                height: 8%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            > :nth-child(2) {
+                height: 92%;
+            }
         }
     }
 }

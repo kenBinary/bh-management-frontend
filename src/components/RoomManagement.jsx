@@ -5,7 +5,8 @@ import RoomPopUp from "./RoomPopUp";
 import { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 const SimplePieChart = ({ data }) => {
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']; // Customize your pie chart colors
+    // const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']; 
+    const COLORS = ['#FF0000', '#0000FF'];
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
