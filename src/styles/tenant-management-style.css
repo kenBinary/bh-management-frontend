@@ -79,13 +79,68 @@
 }
 .tenant-management > aside > .tenant-list {
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.1rem;
 }
 .tenant-management > aside > .tenant-list > h3 {
   font-size: 1.5rem;
   border-bottom: 2px solid #00adb5;
 }
+.tenant-management > aside > .tenant-list .tenant-record {
+  border-bottom: none !important;
+  box-sizing: border-box;
+}
 .tenant-management > aside > .tenant-list .tenant-record > div {
+  font-size: 1.3rem;
   pointer-events: none;
+}
+.tenant-management > aside > .tenant-list .tenant-record:hover {
+  background-color: #eeeeee;
+}
+.tenant-management > aside > .tenant-list .tenant-record > button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1rem;
+  overflow: hidden;
+  background: #00adb5;
+  color: #eeeeee;
+}
+.tenant-management > aside > .tenant-list .tenant-record > button > span {
+  position: relative;
+  z-index: 10;
+  transition: color 0.4s;
+  pointer-events: none;
+}
+.tenant-management > aside > .tenant-list .tenant-record > button:hover span {
+  color: #393e46;
+}
+.tenant-management > aside > .tenant-list .tenant-record > button::before,
+.tenant-management > aside > .tenant-list .tenant-record > button ::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.tenant-management > aside > .tenant-list .tenant-record > button::before {
+  content: "";
+  background: #393e46;
+  width: 120%;
+  left: -10%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+.tenant-management > aside > .tenant-list .tenant-record > button:hover::before {
+  transform: translate3d(100%, 0, 0);
 }
 .tenant-management > aside > .tenant-list > div {
   padding: 0.2rem;
@@ -109,6 +164,50 @@
 .tenant-management > aside > button {
   flex-shrink: 0;
   height: 35px;
+}
+.tenant-management > aside > button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1rem;
+  overflow: hidden;
+  background: #00adb5;
+  color: #eeeeee;
+}
+.tenant-management > aside > button > span {
+  position: relative;
+  z-index: 10;
+  transition: color 0.4s;
+  pointer-events: none;
+}
+.tenant-management > aside > button:hover span {
+  color: #393e46;
+}
+.tenant-management > aside > button::before,
+.tenant-management > aside > button ::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.tenant-management > aside > button::before {
+  content: "";
+  background: #393e46;
+  width: 120%;
+  left: -10%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+.tenant-management > aside > button:hover::before {
+  transform: translate3d(100%, 0, 0);
 }
 .tenant-management > .tenant-info {
   padding: 0.5rem;
@@ -136,7 +235,7 @@
 }
 .tenant-management > .tenant-info > .tenant-details > div {
   font-size: 1.1rem;
-  border-right: 1px solid #00adb5;
+  border-right: 2px solid #00adb5;
   cursor: default;
 }
 .tenant-management > .tenant-extra-info {
@@ -155,6 +254,50 @@
   outline: none;
   border: 2px solid #393e46;
   border-radius: 5px;
+}
+.tenant-management > .tenant-extra-info > .table-selector > button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1rem;
+  overflow: hidden;
+  background: #00adb5;
+  color: #eeeeee;
+}
+.tenant-management > .tenant-extra-info > .table-selector > button > span {
+  position: relative;
+  z-index: 10;
+  transition: color 0.4s;
+  pointer-events: none;
+}
+.tenant-management > .tenant-extra-info > .table-selector > button:hover span {
+  color: #393e46;
+}
+.tenant-management > .tenant-extra-info > .table-selector > button::before,
+.tenant-management > .tenant-extra-info > .table-selector > button ::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.tenant-management > .tenant-extra-info > .table-selector > button::before {
+  content: "";
+  background: #393e46;
+  width: 120%;
+  left: -10%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+.tenant-management > .tenant-extra-info > .table-selector > button:hover::before {
+  transform: translate3d(100%, 0, 0);
 }
 .tenant-management > .tenant-extra-info > table {
   display: block;

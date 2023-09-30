@@ -16,7 +16,7 @@ function TableSelector({ togglePopUp, updatePopUpType, tableType, updateTableTyp
                 <button onClick={() => {
                     updatePopUpType("add-necessity");
                     togglePopUp();
-                }} type="button">Add Necessity</button>
+                }} type="button"><span>Add Necessity</span></button>
             </div>
         )
     }
@@ -219,14 +219,14 @@ export default function TenantManagement() {
                                     e.stopPropagation();
                                     setPopUpType("edit");
                                     togglePopUp();
-                                }}>Edit</button></div>
+                                }}><span>Edit</span></button></div>
                         })
                     }
                 </div>
                 <button onClick={() => {
                     setPopUpType("add");
                     togglePopUp();
-                }}>Add New Tenant</button>
+                }}><span>Add New Tenant</span></button>
             </aside>
             <section className="tenant-info">
                 <img src={tenant} alt="tenant-image" />

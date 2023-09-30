@@ -16,7 +16,7 @@ $accent-color-2: #393e46;
     > .room-filters {
         grid-row: 1/2;
         grid-column: 1/2;
-        border: 1px solid $accent-color;
+        border: 1.5px solid $dominant-color;
         border-radius: 0.3rem;
         padding: 0.3rem;
         display: flex;
@@ -26,11 +26,58 @@ $accent-color-2: #393e46;
             display: flex;
             justify-content: right;
             align-items: center;
-            padding-top: .1rem;
+            padding-top: 0.1rem;
         }
         > h3 {
             font-size: 1.5rem;
             border-bottom: 2px solid $dominant-color;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            > button {
+                outline: none;
+                cursor: pointer;
+                border: none;
+                padding: 0.2rem;
+                border-radius: 0.3rem;
+                margin: 0;
+                position: relative;
+                display: inline-block;
+                font-weight: bold;
+                font-size: 1rem;
+                overflow: hidden;
+                background: $dominant-color;
+                color: $secondary-color;
+                > span {
+                    position: relative;
+                    z-index: 10;
+                    transition: color 0.4s;
+                    pointer-events: none;
+                }
+                &:hover span {
+                    color: $accent-color;
+                }
+                &::before,
+                ::after {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
+                }
+                &::before {
+                    content: "";
+                    background: $accent-color;
+                    width: 120%;
+                    left: -10%;
+                    transform: skew(30deg);
+                    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+                }
+                &:hover::before {
+                    transform: translate3d(100%, 0, 0);
+                }
+            }
         }
         > h5 {
             padding-bottom: 0.2rem;
@@ -41,7 +88,28 @@ $accent-color-2: #393e46;
             column-gap: 0.5rem;
             > input {
                 width: 10%;
+                cursor: pointer;
             }
+            > label {
+                cursor: pointer;
+            }
+        }
+    }
+    > .room-analytics {
+        grid-column: 1/2;
+        grid-row: 2/3;
+        height: 100%;
+        border: 1.5px solid $dominant-color;
+        border-radius: 5px;
+        padding: 0.3rem;
+        display: flex;
+        flex-direction: column;
+        >h3{
+            display: flex;
+            justify-content: center;
+        }
+        > div {
+            flex: 1;
         }
     }
     > .room-list {
@@ -88,6 +156,9 @@ $accent-color-2: #393e46;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    > div {
+                        cursor: pointer;
+                    }
                 }
                 > .room-utility {
                     display: grid;
@@ -112,6 +183,16 @@ $accent-color-2: #393e46;
                     column-gap: 1rem;
                     > * {
                         width: 25%;
+                        border-radius: 0.5rem;
+                        color: $secondary-color;
+                        font-size: 1.1rem;
+                        cursor: pointer;
+                    }
+                    > :nth-child(1) {
+                        background-color: $dominant-color;
+                    }
+                    > :nth-child(2) {
+                        background-color: #222831;
                     }
                 }
             }
@@ -121,7 +202,7 @@ $accent-color-2: #393e46;
             font-size: 1.5rem;
             color: $accent-color;
         }
-        > .test-div {
+        > .card-container {
             height: 100%;
             overflow-y: auto;
             display: flex;
@@ -130,7 +211,7 @@ $accent-color-2: #393e46;
             > .room-card {
                 display: flex;
                 column-gap: 1rem;
-                border: 1px solid $dominant-color;
+                border: 1.5px solid $dominant-color;
                 padding: 0.5rem;
                 border-radius: 1rem;
                 > :nth-child(1) {
@@ -155,14 +236,57 @@ $accent-color-2: #393e46;
                         grid-template-columns: 1fr 1fr;
                         gap: 0.5rem;
                         font-size: 1.2rem;
+                        > p {
+                            font-size: 1.2rem;
+                        }
                     }
                     > .room-actions {
                         display: flex;
                         justify-content: flex-end;
                         column-gap: 1rem;
                         > button {
-                            color: $accent-color;
+                            outline: none;
+                            cursor: pointer;
+                            border: none;
+                            padding: 0.3rem;
+                            border-radius: 0.3rem;
+                            margin: 0;
+                            position: relative;
+                            display: inline-block;
                             font-weight: bold;
+                            font-size: 1rem;
+                            overflow: hidden;
+                            background: $dominant-color;
+                            color: $secondary-color;
+                            > span {
+                                position: relative;
+                                z-index: 10;
+                                transition: color 0.4s;
+                                pointer-events: none;
+                            }
+                            &:hover span {
+                                color: $accent-color;
+                            }
+                            &::before,
+                            ::after {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                z-index: 0;
+                            }
+                            &::before {
+                                content: "";
+                                background: $accent-color;
+                                width: 120%;
+                                left: -10%;
+                                transform: skew(30deg);
+                                transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+                            }
+                            &:hover::before {
+                                transform: translate3d(100%, 0, 0);
+                            }
                         }
                     }
                 }
@@ -208,18 +332,5 @@ $accent-color-2: #393e46;
         //         }
         //     }
         // }
-    }
-    > .room-analytics {
-        grid-column: 1/2;
-        grid-row: 2/3;
-        height: 100%;
-        border: 1px solid $accent-color;
-        border-radius: 5px;
-        padding: 0.3rem;
-        display: flex;
-        flex-direction: column;
-        > div {
-            flex: 1;
-        }
     }
 }

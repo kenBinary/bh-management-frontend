@@ -198,9 +198,11 @@ export default function PaymentManagement() {
             </div>
             <div className="analytics-container">
                 <div className="paid-analytics">
+                    <h3>Payment Status</h3>
                     <SimplePieChart data={paidAnalyticsData}></SimplePieChart>
                 </div>
                 <div className="payment-analytics" >
+                    <h3>Payment Categories</h3>
                     <SimpleBarChart didMount={didMount} data={paymentAnalyticsData}></SimpleBarChart>
                 </div>
             </div>

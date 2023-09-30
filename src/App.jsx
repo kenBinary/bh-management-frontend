@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Route, Routes, useSearchParams } from "react-router-dom";
 import NavBar from './components/NavBar'
 import './styles/header-styles.css';

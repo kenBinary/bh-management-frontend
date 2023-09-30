@@ -103,7 +103,9 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
                 <div className="remove">
                     <div className="pop-up-type">
                         <h3>Remove Tenant</h3>
-                        <div>X</div>
+                        <div onClick={()=>{
+                            togglePopUp();
+                        }}>X</div>
                     </div>
                     <select name="tenant-name" id="tenant-list" onChange={(e) => {
                         setTenantID(e.target.value);
@@ -131,7 +133,9 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
             <div>
                 <div className="pop-up-type">
                     <h3>Assign Tenant</h3>
-                    <div>X</div>
+                    <div onClick={()=>{
+                        togglePopUp();
+                    }}>X</div>
                 </div>
                 <select name="tenant-name" id={selectDefaultValue} onChange={(e) => {
                     setTenantID(e.target.value);

@@ -81,11 +81,6 @@ function RoomManagement() {
     }
     function filterList(data, filterType) {
         let x = [];
-        // if (filterType === "double room" || filterType === "single room") {
-        //     x = data.filter((element) => {
-        //         return element.room_type === filterType
-        //     });
-        // }
         if (filterType === 2700 || filterType === 3500) {
             x = data.filter((element) => {
                 return element.room_fee === filterType
@@ -130,12 +125,17 @@ function RoomManagement() {
     return (
         <section className="room-management">
             <div className="room-filters">
-                <h3>Filter The List</h3>
-                <div className="clear-filter">
+                <h3>
+                    Filter The List
+                    <button onClick={() => {
+                        setRoomList(initialList);
+                    }}><span>clear</span></button>
+                </h3>
+                {/* <div className="clear-filter">
                     <button onClick={() => {
                         setRoomList(initialList);
                     }}>clear</button>
-                </div>
+                </div> */}
                 <h5>Room Status</h5>
                 <div className="filter-option">
                     <input type="radio" name="status" id="occupied" value="1" onChange={(e) => {
@@ -242,7 +242,7 @@ function RoomManagement() {
             <div className="room-list">
                 <RoomPopUp showPopUp={showPopUp} popUpType={popUpType} roomInfo={selectedRoom} isActive={showPopUp} togglePopUp={togglePopUp}></RoomPopUp>
                 <h3>ROOM LIST</h3>
-                <div className="test-div">
+                <div className="card-container">
                     {
                         roomList.map((element) => {
                             return <RoomCard removeTenant={removeTenant} togglePopUp={togglePopUp} popUpType={togglePopUpType} onAssign={onAssign} key={element.room_number} roomImage={[singleBed, doubleBed]} roomName={element.room_type} roomNumber={element.room_number} roomType={element.room_type} roomStatus={element.room_status} roomFee={element.room_fee}></RoomCard>
@@ -251,6 +251,7 @@ function RoomManagement() {
                 </div>
             </div>
             <div className="room-analytics">
+                <h3>Room Overview</h3>
                 <div className="room-status">
                     <SimplePieChart data={roomStatusData}></SimplePieChart>
                 </div>

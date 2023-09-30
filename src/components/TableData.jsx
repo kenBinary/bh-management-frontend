@@ -19,7 +19,7 @@ function TableRow({ updateSelectedData, togglePopUp, dataID, tableData, tableHea
                     <button onClick={() => {
                         updateSelectedData(tableData[dataID]);
                         togglePopUp();
-                    }}>details</button>
+                    }}><span>details</span></button>
                 </td>
             }
             {/* <td>
