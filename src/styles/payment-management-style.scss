@@ -108,6 +108,12 @@ $accent-color-2: #393e46;
         > h3 {
             font-size: 1.3rem;
         }
+        .table-selector {
+            padding: 0.3rem;
+            outline: none;
+            border: 2px solid $accent-color;
+            border-radius: 5px;
+        }
     }
     > .recent-payments {
         height: 100%;
@@ -120,18 +126,18 @@ $accent-color-2: #393e46;
             font-size: 1.3rem;
         }
     }
-    >.analytics-container{
+    > .analytics-container {
         grid-column: 2/3;
         grid-row: 1/3;
         display: flex;
         flex: 1;
         flex-direction: column;
         row-gap: 1rem;
-        >.paid-analytics{
+        > .paid-analytics {
             height: 50%;
             outline: 1px solid black;
         }
-        >.payment-analytics{
+        > .payment-analytics {
             height: 50%;
             outline: 1px solid black;
         }

@@ -14,7 +14,7 @@ const SimpleLineChart = ({ data }) => {
             <LineChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
-                <YAxis />
+                <YAxis domain={[0, 'dataMax+500']} />
                 <Tooltip />
                 <Legend />
                 <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
@@ -52,6 +52,7 @@ function SimplePieChart({ data }) {
 export default function Dashboard() {
     let [didMount, setDidMount] = useState(false);
     let [monthlyRevenue, setMonthlyRevenue] = useState(0);
+    let [yearlyRevenue, setYearlyRevenue] = useState(0);
     let [totalTenants, setTotalTenants] = useState([]);
     let [vacantRooms, setVacantRooms] = useState(0)
     let [rentCollection, setRentCollection] = useState(0)
@@ -61,6 +62,13 @@ export default function Dashboard() {
         { name: 'Feb', value: 30 },
         { name: 'Mar', value: 45 },
         { name: 'Apr', value: 28 },
+        { name: 'May', value: 35 },
+        { name: 'May', value: 35 },
+        { name: 'May', value: 35 },
+        { name: 'May', value: 35 },
+        { name: 'May', value: 35 },
+        { name: 'May', value: 35 },
+        { name: 'May', value: 35 },
         { name: 'May', value: 35 },
     ];
     // initial render
@@ -73,7 +81,13 @@ export default function Dashboard() {
         }).then((data) => {
             setMonthlyRevenue(data);
         });
-
+        fetch("http://localhost:3000/dashboard/yearly-revenue", {
+            method: "GET"
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            setYearlyRevenue(data);
+        });
         fetch("http://localhost:3000/dashboard/total-tenants", {
             method: "GET"
         }).then((response) => {
@@ -162,7 +176,7 @@ export default function Dashboard() {
             <div className="tenant-room-analytics">
                 <div className="line-chart">
                     <h3>Payment Overview</h3>
-                    <SimpleLineChart data={lineChartData}></SimpleLineChart>
+                    <SimpleLineChart data={yearlyRevenue}></SimpleLineChart>
                 </div>
                 <div className="occupancy-chart">
                     <h3>Room Overview</h3>

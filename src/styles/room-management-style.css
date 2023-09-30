@@ -20,6 +20,12 @@
   flex-direction: column;
   justify-content: space-evenly;
 }
+.room-management > .room-filters > .clear-filter {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding-top: 0.1rem;
+}
 .room-management > .room-filters > h3 {
   font-size: 1.5rem;
   border-bottom: 2px solid #00adb5;

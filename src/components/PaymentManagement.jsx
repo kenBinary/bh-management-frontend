@@ -39,7 +39,7 @@ const SimpleBarChart = ({ data, didMount }) => {
                 <YAxis domain={[0, 'dataMax+500']} />
                 <Tooltip />
                 <Legend />
-                <Bar barSize={70} dataKey="revenue" fill="#8884d8" />
+                <Bar barSize={70} dataKey="revenue" fill="#FFBB28" />
             </BarChart>
         </ResponsiveContainer>
     );
@@ -182,7 +182,7 @@ export default function PaymentManagement() {
         <section className="payment-management">
             <PaymentPopUp popUpType={popUpType} selectedData={selectedData} selectedDataDetails={selectedDataDetails} showPopUp={showPopUp} togglePopUp={togglePopUp}></PaymentPopUp>
             <div className="upcoming-dues">
-                <select onChange={(e) => {
+                <select className="table-selector" onChange={(e) => {
                     setCurrentTable(e.target.value);
                 }} defaultValue="room-table" id="payment-type">
                     <option value="room-table">Room</option>

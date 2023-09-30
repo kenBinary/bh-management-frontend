@@ -142,7 +142,6 @@ export default function TenantManagement() {
                 return response.json()
             }).then((data) => {
                 setTenantList(data);
-                console.log(tenantList)
             });
         }
     }, [showPopUp]);
@@ -182,7 +181,7 @@ export default function TenantManagement() {
         // else if (tableType === "payment-history") {
         //     console.log("tanan")
         // }
-    }, [tableType, selectedTenant]);
+    }, [tableType, selectedTenant, showPopUp]);
 
     if (isLoading) {
         return (<div>...loading</div>)
