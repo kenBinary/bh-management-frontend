@@ -15,6 +15,7 @@ $accent-color-2: #393e46;
     position: relative;
 
     > .pop-up-container {
+        z-index: 9999;
         position: absolute;
         top: 0px;
         left: 0px;

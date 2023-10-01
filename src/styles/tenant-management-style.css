@@ -10,6 +10,7 @@
   position: relative;
 }
 .tenant-management > .pop-up-container {
+  z-index: 9999;
   position: absolute;
   top: 0px;
   left: 0px;

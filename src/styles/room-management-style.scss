@@ -121,6 +121,7 @@ $accent-color-2: #393e46;
         row-gap: 0.5rem;
         position: relative;
         > .pop-up-background {
+            z-index: 9999;
             > .remove {
                 height: 25% !important;
             }

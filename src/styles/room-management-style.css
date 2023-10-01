@@ -119,6 +119,7 @@
   position: relative;
 }
 .room-management > .room-list > .pop-up-background {
+  z-index: 9999;
   position: absolute;
   top: 0px;
   left: 0px;
