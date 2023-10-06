@@ -20,7 +20,6 @@ const SimpleLineChart = ({ data }) => {
                 <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
             </LineChart>
         </ResponsiveContainer>
-
     );
 };
 function SimplePieChart({ data }) {
@@ -57,20 +56,20 @@ export default function Dashboard() {
     let [vacantRooms, setVacantRooms] = useState(0)
     let [rentCollection, setRentCollection] = useState(0)
     let [roomStatusData, setRoomStatusData] = useState([]);
-    const lineChartData = [
-        { name: 'Jan', value: 25 },
-        { name: 'Feb', value: 30 },
-        { name: 'Mar', value: 45 },
-        { name: 'Apr', value: 28 },
-        { name: 'May', value: 35 },
-        { name: 'May', value: 35 },
-        { name: 'May', value: 35 },
-        { name: 'May', value: 35 },
-        { name: 'May', value: 35 },
-        { name: 'May', value: 35 },
-        { name: 'May', value: 35 },
-        { name: 'May', value: 35 },
-    ];
+    // const lineChartData = [
+    //     { name: 'Jan', value: 25 },
+    //     { name: 'Feb', value: 30 },
+    //     { name: 'Mar', value: 45 },
+    //     { name: 'Apr', value: 28 },
+    //     { name: 'May', value: 35 },
+    //     { name: 'May', value: 35 },
+    //     { name: 'May', value: 35 },
+    //     { name: 'May', value: 35 },
+    //     { name: 'May', value: 35 },
+    //     { name: 'May', value: 35 },
+    //     { name: 'May', value: 35 },
+    //     { name: 'May', value: 35 },
+    // ];
     // initial render
     useEffect(() => {
         // get monthly revenue

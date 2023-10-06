@@ -6,7 +6,7 @@ import tenants from '/nav-bar/tenants.svg';
 import payments from '/nav-bar/payments.svg';
 import logOut from '/nav-bar/logout.svg';
 import systemLogo from '/nav-bar/logo.png';
-export default function NavBar() {
+export default function NavBar({ updateAuth }) {
     return (
         <nav>
             <div className="system-logo">
@@ -40,9 +40,11 @@ export default function NavBar() {
                 </li>
             </ul>
             <div className="user-actions">
-                {/* <div>
+                <div onClick={() => {
+                    updateAuth(false)
+                }}>
                     <img src={logOut} alt="system logo" />
-                </div> */}
+                </div>
             </div>
         </nav>
     )

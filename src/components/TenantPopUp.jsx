@@ -151,7 +151,7 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                         fee: e.target.value
                     });
                 }} placeholder="Enter Necessity Fee" required />
-                <div>
+                <div className="room-action">
                     <button onClick={() => {
                         addNecessity(selectedTenant.tenantId, necessity.fee, necessity.type);
                         setNecessity({
@@ -202,7 +202,7 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
                         identification: e.target.value
                     });
                 }} type="text" placeholder="Identification" name="identification" id="identification" />
-                <div>
+                <div className="room-action">
                     <button type="button" onClick={() => {
                         addTenant(addTenantInfo.firstName, addTenantInfo.lastName, addTenantInfo.contact, addTenantInfo.identification);
                         setAddTenantInfo({

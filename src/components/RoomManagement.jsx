@@ -43,10 +43,10 @@ const SimplePieChart = ({ data }) => {
     );
 };
 function RoomManagement() {
-    let [didMount, setDidMount] = useState(false);
+    // let [didMount, setDidMount] = useState(false);s
     let [initialList, setInitialList] = useState([])
     let [roomList, setRoomList] = useState([]);
-    let [filteredList, setFilteredList] = useState([]);
+    // let [filteredList, setFilteredList] = useState([]);
     let [filterStatus, setFilterStatus] = useState({
         room: false,
         price: false,
