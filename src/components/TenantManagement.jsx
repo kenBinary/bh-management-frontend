@@ -99,13 +99,6 @@ export default function TenantManagement() {
                 });
             }
         });
-        // fetch(`http://localhost:3000/necessity/${selectedTenant.tenantId}`, {
-        //     method: "GET"
-        // }).then(response => {
-        //     return response.json()
-        // }).then((data) => {
-        //     setTableData(data)
-        // });
         setIsLoading(false);
         setDidMount(true);
     }, []);
@@ -120,18 +113,6 @@ export default function TenantManagement() {
                 setTenantInfo(data[0]);
             });
         }
-        // if (isActive) {
-        //     fetch(`http://localhost:3000/tenant/${selectedTenant.tenantId}`, {
-        //         method: "GET"
-        //     }).then((response) => {
-        //         return response.json();
-        //     }).then((data) => {
-        //         setTenantInfo(data[0]);
-        //     });
-        // }
-        // else {
-        //     setIsActive(true);
-        // }
     }, [selectedTenant]);
     // get tenant list
     useEffect(() => {

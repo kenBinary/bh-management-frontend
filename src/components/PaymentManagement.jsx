@@ -55,7 +55,6 @@ export default function PaymentManagement() {
     let [recentPayments, setRecentPayments] = useState([]);
     let [paidAnalyticsData, setPaidAnalyticsData] = useState([]);
     let [paymentAnalyticsData, setPaymentAnalyticsData] = useState([]);
-    // let [isLoading, setIsLoading] = useState(true);
     function togglePopUp() {
         setShowPopUp((showPopUp) ? false : true);
     }
@@ -79,9 +78,6 @@ export default function PaymentManagement() {
         }).then((data) => {
             setRecentPayments(data);
         });
-        // const today = new Date();
-        // const monthNumber = today.getMonth() + 1;
-        // const url = `http://localhost:3000/payment/analytics/paid-unpaid?month=${monthNumber}`;
         fetch("http://localhost:3000/payment/analytics/paid-unpaid", {
             method: "GET"
         }).then(response => {
@@ -175,9 +171,7 @@ export default function PaymentManagement() {
             }
         }
     }, [selectedData]);
-    // if (isLoading) {
-    //     return (<div>...loading</div>)
-    // }
+
     return (
         <section className="payment-management">
             <PaymentPopUp popUpType={popUpType} selectedData={selectedData} selectedDataDetails={selectedDataDetails} showPopUp={showPopUp} togglePopUp={togglePopUp}></PaymentPopUp>

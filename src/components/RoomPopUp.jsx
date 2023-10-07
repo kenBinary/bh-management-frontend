@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp }) {
+export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInfo, togglePopUp }) {
     let [tenantList, setTenantList] = useState([]);
     let [tenantFromRoom, setTenantFromRoom] = useState([]);
     let [tenantInternet, setTenantInternet] = useState(false);
@@ -45,25 +45,6 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
             });
         }
     }, [popUpType, showPopUp]);
-    // useEffect(() => {
-    //     if (showPopUp) {
-    //         fetch("http://localhost:3000/tenant/new-tenants", {
-    //             method: "GET"
-    //         }).then(response => {
-    //             return response.json()
-    //         }).then((data) => {
-    //             setTenantList(data)
-    //         });
-    //         const url = `http://localhost:3000/tenant/tenant-from-room/${roomInfo.roomNumber}`;
-    //         fetch(url, {
-    //             method: "GET"
-    //         }).then(response => {
-    //             return response.json()
-    //         }).then((data) => {
-    //             setTenantFromRoom(data)
-    //         });
-    //     }
-    // }, [showPopUp])
     function assignTenant(roomNumber, tenantId, internetTrue) {
         fetch("http://localhost:3000/room/assign-room", {
             method: "POST",
@@ -103,7 +84,7 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
                 <div className="remove">
                     <div className="pop-up-type">
                         <h3>Remove Tenant</h3>
-                        <div onClick={()=>{
+                        <div onClick={() => {
                             togglePopUp();
                         }}>X</div>
                     </div>
@@ -121,6 +102,7 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
                     <div className="room-action">
                         <button type="button" onClick={() => {
                             removeTenant(tenantRoom, tenantID);
+                            toggleGetList();
                         }}>Remove</button>
                         <button type="button" onClick={togglePopUp}>Back</button>
                     </div>
@@ -133,7 +115,7 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
             <div>
                 <div className="pop-up-type">
                     <h3>Assign Tenant</h3>
-                    <div onClick={()=>{
+                    <div onClick={() => {
                         togglePopUp();
                     }}>X</div>
                 </div>
@@ -175,7 +157,9 @@ export default function RoomPopUp({ showPopUp, popUpType, roomInfo, togglePopUp 
                 <div className="room-action">
                     <button type="button" onClick={() => {
                         assignTenant(tenantRoom, tenantID, tenantInternet);
+                        toggleGetList();
                     }}>
+
                         Assign
                     </button>
                     <button type="button" onClick={togglePopUp}>Back</button>
