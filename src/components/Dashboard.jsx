@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { PieChart, Pie, Cell, Label } from 'recharts';
+import MyPieChart from "./MyPieChart";
 import collectionIcon from "/dashboard/collection.svg"
 import revenueIcon from "/dashboard/revenue.svg"
 import tenantIcon from "/dashboard/tenant.svg"
 import vacantIcon from "/dashboard/vacant.svg"
 
-
-
-const SimpleLineChart = ({ data }) => {
+const MyLineChart = ({ data }) => {
     return (
         <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
@@ -22,101 +20,61 @@ const SimpleLineChart = ({ data }) => {
         </ResponsiveContainer>
     );
 };
-function SimplePieChart({ data }) {
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-    return (
-        <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-                <Pie
-                    data={data}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={150}
-                    fill="#8884d8"
-                    label
-                >
-                    {data.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-            </PieChart>
-        </ResponsiveContainer >
-    );
-};
 
 export default function Dashboard() {
     let [didMount, setDidMount] = useState(false);
-    let [monthlyRevenue, setMonthlyRevenue] = useState(0);
-    let [yearlyRevenue, setYearlyRevenue] = useState(0);
-    let [totalTenants, setTotalTenants] = useState([]);
-    let [vacantRooms, setVacantRooms] = useState(0)
-    let [rentCollection, setRentCollection] = useState(0)
-    let [roomStatusData, setRoomStatusData] = useState([]);
-    // const lineChartData = [
-    //     { name: 'Jan', value: 25 },
-    //     { name: 'Feb', value: 30 },
-    //     { name: 'Mar', value: 45 },
-    //     { name: 'Apr', value: 28 },
-    //     { name: 'May', value: 35 },
-    //     { name: 'May', value: 35 },
-    //     { name: 'May', value: 35 },
-    //     { name: 'May', value: 35 },
-    //     { name: 'May', value: 35 },
-    //     { name: 'May', value: 35 },
-    //     { name: 'May', value: 35 },
-    //     { name: 'May', value: 35 },
-    // ];
-    // initial render
+    let totalTenants = useRef([]);
+    let rentCollection = useRef(0);
+    let vacantRooms = useRef(0);
+    let yearlyRevenue = useRef(0);
+    let roomOverview = useRef([]);
+    let monthlyRevenue = useRef([]);
     useEffect(() => {
         // get monthly revenue
-        fetch("http://localhost:3000/dashboard/monthly-revenue", {
+        const firstPromise = fetch("http://localhost:3000/analytics/monthly-revenue", {
             method: "GET"
         }).then((response) => {
             return response.json();
-        }).then((data) => {
-            setMonthlyRevenue(data);
         });
-        fetch("http://localhost:3000/dashboard/yearly-revenue", {
+        const secondPromise = fetch("http://localhost:3000/analytics/yearly-revenue", {
             method: "GET"
         }).then((response) => {
             return response.json();
-        }).then((data) => {
-            setYearlyRevenue(data);
-        });
-        fetch("http://localhost:3000/dashboard/total-tenants", {
+        })
+        const thirdPromise = fetch("http://localhost:3000/analytics/total-tenants", {
             method: "GET"
         }).then((response) => {
             return response.json();
-        }).then((data) => {
-            setTotalTenants(data);
-        });
-        fetch("http://localhost:3000/dashboard/vacant-rooms", {
+        })
+        const fourthPromise = fetch("http://localhost:3000/analytics/vacant-rooms", {
             method: "GET"
         }).then((response) => {
             return response.json();
-        }).then((data) => {
-            setVacantRooms(data);
-        });
-        fetch("http://localhost:3000/dashboard/rent-collection", {
+        })
+        const fifthPromise = fetch("http://localhost:3000/analytics/rent-collection", {
             method: "GET"
         }).then((response) => {
             return response.json();
-        }).then((data) => {
-            console.log(data)
-            setRentCollection(data);
-        });
-        fetch("http://localhost:3000/room/status-analytics", {
+        })
+        const sixthPromise = fetch("http://localhost:3000/analytics/room-overview", {
             method: "GET"
         }).then((response) => {
             return response.json();
-        }).then((data) => {
-            setRoomStatusData(data);
+        })
+        Promise.allSettled([
+            firstPromise, secondPromise,
+            thirdPromise, fourthPromise,
+            fifthPromise, sixthPromise
+        ]).then((response) => {
+            monthlyRevenue.current = response[0].value;
+            yearlyRevenue.current = response[1].value;
+            totalTenants.current = response[2].value;
+            vacantRooms.current = response[3].value;
+            rentCollection.current = response[4].value;
+            roomOverview.current = response[5].value;
+        }).finally(() => {
+            setDidMount(true);
         });
-        setDidMount(true);
     }, [])
     if (!didMount) {
         return <div>Loading...</div>
@@ -132,7 +90,7 @@ export default function Dashboard() {
                         Monthly Revenue
                     </div>
                     <div>
-                        ₱ {monthlyRevenue.revenue}
+                        ₱ {monthlyRevenue.current.revenue}
                     </div>
                     <div>
                         <img className="icon" src={revenueIcon} alt="" />
@@ -143,7 +101,7 @@ export default function Dashboard() {
                         Total Tenants
                     </div>
                     <div>
-                        {totalTenants.total_tenants}
+                        {totalTenants.current.total_tenants}
                     </div>
                     <div>
                         <img className="icon" src={tenantIcon} alt="" />
@@ -154,7 +112,7 @@ export default function Dashboard() {
                         Rent Collections
                     </div>
                     <div>
-                        {rentCollection.total}
+                        {rentCollection.current.total}
                     </div>
                     <div>
                         <img className="icon" src={collectionIcon} alt="" />
@@ -165,7 +123,7 @@ export default function Dashboard() {
                         Vacant Rooms
                     </div>
                     <div>
-                        {vacantRooms.total_vacant}
+                        {vacantRooms.current.total_vacant}
                     </div>
                     <div>
                         <img className="icon" src={vacantIcon} alt="" />
@@ -175,11 +133,11 @@ export default function Dashboard() {
             <div className="tenant-room-analytics">
                 <div className="line-chart">
                     <h3>Payment Overview</h3>
-                    <SimpleLineChart data={yearlyRevenue}></SimpleLineChart>
+                    <MyLineChart data={yearlyRevenue.current}></MyLineChart>
                 </div>
                 <div className="occupancy-chart">
                     <h3>Room Overview</h3>
-                    <SimplePieChart data={roomStatusData}></SimplePieChart>
+                    <MyPieChart data={roomOverview.current}></MyPieChart>
                 </div>
             </div>
         </section>

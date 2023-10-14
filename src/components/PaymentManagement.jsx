@@ -63,7 +63,7 @@ export default function PaymentManagement() {
     }
     // initialize table data
     useEffect(() => {
-        fetch("http://localhost:3000/roomfee/unpaid", {
+        fetch("http://localhost:3000/payment/room-fee/unpaid", {
             method: "GET"
         }).then(response => {
             return response.json();;
@@ -78,14 +78,14 @@ export default function PaymentManagement() {
         }).then((data) => {
             setRecentPayments(data);
         });
-        fetch("http://localhost:3000/payment/analytics/paid-unpaid", {
+        fetch("http://localhost:3000/analytics/payment-ratio", {
             method: "GET"
         }).then(response => {
             return response.json();;
         }).then((data) => {
             setPaidAnalyticsData(data);
         });
-        fetch("http://localhost:3000/payment/analytics/payment-analytics", {
+        fetch("http://localhost:3000/analytics/payment-categories", {
             method: "GET"
         }).then(response => {
             return response.json();;
@@ -99,38 +99,35 @@ export default function PaymentManagement() {
         if (didMount) {
             // room fees
             if (currentTable === "room-table") {
-                fetch("http://localhost:3000/roomfee/unpaid", {
+                fetch("http://localhost:3000/payment/room-fee/unpaid", {
                     method: "GET"
                 }).then(response => {
                     return response.json();;
                 }).then((data) => {
                     setPopUpType("room-table")
                     setTableData(data);
-                    // setIsLoading(false)
                 });
             }
             else if (currentTable === "utility-table") {
                 // utility fees
-                fetch("http://localhost:3000/utilityfee/unpaid", {
+                fetch("http://localhost:3000/payment/utility-fee/unpaid", {
                     method: "GET"
                 }).then(response => {
                     return response.json();;
                 }).then((data) => {
                     setPopUpType("utility-table")
                     setTableData(data);
-                    // setIsLoading(false)
                 });
             }
             else if (currentTable === "necessity-table") {
                 // necessity fees
-                fetch("http://localhost:3000/necessityfee/unpaid", {
+                fetch("http://localhost:3000/payment/necessity-fee/unpaid", {
                     method: "GET"
                 }).then(response => {
                     return response.json();;
                 }).then((data) => {
                     setPopUpType("necessity-table")
                     setTableData(data);
-                    // setIsLoading(false)
                 });
             }
         }
@@ -140,33 +137,30 @@ export default function PaymentManagement() {
     useEffect(() => {
         if (didMount) {
             if (popUpType === "room-table") {
-                fetch(`http://localhost:3000/roomfee/${selectedData}`, {
+                fetch(`http://localhost:3000/payment/room-fee/${selectedData}`, {
                     method: "GET"
                 }).then(response => {
                     return response.json();;
                 }).then((data) => {
                     setSelectedDataDetails(data[0])
-                    // setIsLoading(false)
                 });
             }
             else if (popUpType === "utility-table") {
-                fetch(`http://localhost:3000/utilityfee/${selectedData}`, {
+                fetch(`http://localhost:3000/payment/utility-fee/${selectedData}`, {
                     method: "GET"
                 }).then(response => {
                     return response.json();;
                 }).then((data) => {
                     setSelectedDataDetails(data[0])
-                    // setIsLoading(false)
                 });
             }
             else if (popUpType === "necessity-table") {
-                fetch(`http://localhost:3000/necessityfee/${selectedData}`, {
+                fetch(`http://localhost:3000/payment/necessity-fee/${selectedData}`, {
                     method: "GET"
                 }).then(response => {
                     return response.json();;
                 }).then((data) => {
                     setSelectedDataDetails(data[0])
-                    // setIsLoading(false)
                 });
             }
         }

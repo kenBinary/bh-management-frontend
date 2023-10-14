@@ -146,7 +146,7 @@
 }
 .payment-management > .upcoming-dues > table > tbody {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 .payment-management > .upcoming-dues > h3 {
   font-size: 1.3rem;
@@ -243,7 +243,7 @@
 }
 .payment-management > .recent-payments > table > tbody {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 .payment-management > .recent-payments > h3 {
   font-size: 1.3rem;

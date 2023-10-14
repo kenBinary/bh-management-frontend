@@ -79,7 +79,7 @@ $accent-color-2: #393e46;
         }
         > tbody {
             height: 100%;
-            overflow-y: auto;
+            overflow-y: scroll;
         }
     }
 }

@@ -43,10 +43,8 @@ const SimplePieChart = ({ data }) => {
     );
 };
 function RoomManagement() {
-    // let [didMount, setDidMount] = useState(false);
     let [initialList, setInitialList] = useState([])
     let [roomList, setRoomList] = useState([]);
-    // let [filteredList, setFilteredList] = useState([]);
     let [getList, setGetList] = useState(true);
     let [inputStates, setInputStates] = useState({
         occupied: false,
@@ -105,8 +103,8 @@ function RoomManagement() {
     }
     // initial render
     useEffect(() => {
-        // get room status analytics
-        fetch("http://localhost:3000/room/status-analytics", {
+        // get room overview analytics
+        fetch("http://localhost:3000/analytics/room-overview", {
             method: "GET"
         }).then((response) => {
             return response.json();
@@ -123,7 +121,6 @@ function RoomManagement() {
     }, []);
     // get list of rooms
     useEffect(() => {
-        console.log("bruh")
         fetch("http://localhost:3000/room", {
             method: "GET"
         }).then((response) => {
@@ -131,7 +128,7 @@ function RoomManagement() {
         }).then((data) => {
             setRoomList(data);
         });
-        fetch("http://localhost:3000/room/status-analytics", {
+        fetch("http://localhost:3000/analytics/room-overview", {
             method: "GET"
         }).then((response) => {
             return response.json();

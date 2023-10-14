@@ -1,7 +1,7 @@
 export default function PaymentPopUp({ popUpType, selectedData, showPopUp, togglePopUp, selectedDataDetails }) {
     function payFee(popUpType, feeId) {
         if (popUpType === "room-table") {
-            fetch(`http://localhost:3000/roomfee/${feeId}`, {
+            fetch(`http://localhost:3000/payment/room-fee/${feeId}/pay`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export default function PaymentPopUp({ popUpType, selectedData, showPopUp, toggl
             });
         }
         else if (popUpType === "utility-table") {
-            fetch(`http://localhost:3000/utilityfee/${feeId}`, {
+            fetch(`http://localhost:3000/payment/utility-fee/${feeId}/pay`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export default function PaymentPopUp({ popUpType, selectedData, showPopUp, toggl
             });
         }
         else if (popUpType === "necessity-table") {
-            fetch(`http://localhost:3000/necessityfee/${feeId}`, {
+            fetch(`http://localhost:3000/payment/necessity-fee/${feeId}/pay`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

@@ -4,15 +4,7 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
     let [tenantFromRoom, setTenantFromRoom] = useState([]);
     let [tenantInternet, setTenantInternet] = useState(false);
     let [tenantID, setTenantID] = useState(0);
-    let [selectDefaultValue, setSelectDefaultValue] = useState(0);
-    // let [tenantRoom, setTenantRoom] = useState();
-    const tenantInfo = {
-        room: "0",
-        id: "0",
-        internet: "false"
-    }
     let tenantRoom = roomInfo.roomNumber;
-    // tenantInfo.room = roomInfo.roomNumber;
     useEffect(() => {
         if (popUpType === "assign") {
             fetch("http://localhost:3000/tenant/new-tenants", {
@@ -22,13 +14,12 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
             }).then((data) => {
                 setTenantList(data)
                 if (data.length > 0) {
-                    // setSelectDefaultValue(data[0].tenant_id)
                     setTenantID(data[0].tenant_id)
                 }
             });
         }
         else {
-            const url = `http://localhost:3000/tenant/tenant-from-room/${roomInfo.roomNumber}`;
+            const url = `http://localhost:3000/room/${roomInfo.roomNumber}/tenant`;
             fetch(url, {
                 method: "GET"
             }).then(response => {
@@ -36,7 +27,6 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
             }).then((data) => {
                 setTenantFromRoom(data)
                 if (data.length > 0) {
-                    // setSelectDefaultValue(data[0].tenant_id)
                     setTenantID(data[0].tenant_id)
                 }
                 else {
@@ -46,13 +36,13 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
         }
     }, [popUpType, showPopUp]);
     function assignTenant(roomNumber, tenantId, internetTrue) {
-        fetch("http://localhost:3000/room/assign-room", {
+        const url = `http://localhost:3000/room/${roomNumber}/assign-room`;
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                roomNumber: roomNumber,
                 tenantId: tenantId,
                 internetTrue: internetTrue
             })
@@ -63,13 +53,13 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
         });
     }
     function removeTenant(roomNumber, tenantId) {
-        fetch("http://localhost:3000/room/remove-room", {
+        const url = `http://localhost:3000/room/${roomNumber}/remove-room`;
+        fetch(url, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                roomNumber: roomNumber,
                 tenantId: tenantId,
             })
         }).catch((error) => {
@@ -90,9 +80,7 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                     </div>
                     <select name="tenant-name" id="tenant-list" onChange={(e) => {
                         setTenantID(e.target.value);
-                        // tenantInfo.id = e.target.value;
                     }}>
-                        {/* <option disabled selected value> -- select a tenant-- </option> */}
                         {
                             tenantFromRoom.map((element) => {
                                 return <option key={element.tenant_id} value={element.tenant_id || ''}>{element.first_name + " " + element.last_name}</option>
@@ -119,10 +107,9 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                         togglePopUp();
                     }}>X</div>
                 </div>
-                <select name="tenant-name" id={selectDefaultValue} onChange={(e) => {
+                <select name="tenant-name" onChange={(e) => {
                     setTenantID(e.target.value);
                 }}>
-                    {/* <option disabled selected value> -- select a tenant-- </option> */}
                     {
                         tenantList.map((element, index) => {
                             return <option key={element.tenant_id} value={element.tenant_id || ''}>{element.first_name + " " + element.last_name}</option>
@@ -143,7 +130,6 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                     </div>
                     <div>
                         <input type="checkbox" name="internet" id="internet" value={tenantInternet} onChange={(e) => {
-                            // fix internet value does not retain after assigning
                             if (tenantInternet) {
                                 setTenantInternet(false)
                             }
@@ -159,7 +145,6 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                         assignTenant(tenantRoom, tenantID, tenantInternet);
                         toggleGetList();
                     }}>
-
                         Assign
                     </button>
                     <button type="button" onClick={togglePopUp}>Back</button>

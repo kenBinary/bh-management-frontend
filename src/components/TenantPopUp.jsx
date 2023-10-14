@@ -50,13 +50,13 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
         });
     }
     function addNecessity(tenantId, fee, type) {
-        fetch("http://localhost:3000/necessity", {
+        const url = `http://localhost:3000/tenant/${tenantId}/necessity`;
+        fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                newId: String(tenantId),
                 newFee: String(fee),
                 newType: String(type),
             })
@@ -65,6 +65,21 @@ export default function TenantPopUp({ updateSelectedTenant, selectedTenant, show
         }).finally(() => {
             togglePopUp();
         });
+        // fetch("http://localhost:3000/necessity", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         newId: String(tenantId),
+        //         newFee: String(fee),
+        //         newType: String(type),
+        //     })
+        // }).catch((error) => {
+        //     console.log(error)
+        // }).finally(() => {
+        //     togglePopUp();
+        // });
     }
 
     if (popUpType === "edit") {

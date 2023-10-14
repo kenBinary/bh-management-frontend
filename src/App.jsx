@@ -14,8 +14,8 @@ import './styles/login-style.css'
 import { useState } from "react";
 
 function App() {
-  let [isAuthorized, setIsAuthorized] = useState(false);
-  // let [isAuthorized, setIsAuthorized] = useState(true);
+  // let [isAuthorized, setIsAuthorized] = useState(false);
+  let [isAuthorized, setIsAuthorized] = useState(true);
   function updateAuth(status) {
     setIsAuthorized(status);
   }

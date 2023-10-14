@@ -70,7 +70,6 @@ export default function TenantManagement() {
     }
     // initial render
     useEffect(() => {
-        // let id;
         let id = fetch("http://localhost:3000/tenant", {
             method: "GET"
         }).then(response => {
@@ -90,7 +89,7 @@ export default function TenantManagement() {
         });
         id.then((data) => {
             if (data) {
-                fetch(`http://localhost:3000/necessity/${data.tenant_id}`, {
+                fetch(`http://localhost:3000/tenant/${data.tenant_id}/necessity`, {
                     method: "GET"
                 }).then(response => {
                     return response.json()
@@ -131,37 +130,40 @@ export default function TenantManagement() {
     useEffect(() => {
         if (didMount) {
             if (tableType === "necessity") {
-                fetch(`http://localhost:3000/necessity/${selectedTenant.tenantId}`, {
+                const url = `http://localhost:3000/tenant/${selectedTenant.tenantId}/necessity`;
+                fetch(url, {
                     method: "GET"
                 }).then(response => {
                     return response.json()
                 }).then((data) => {
                     setTableData(data)
                 });
+                // fetch(`http://localhost:3000/necessity/${selectedTenant.tenantId}`, {
+                //     method: "GET"
+                // }).then(response => {
+                //     return response.json()
+                // }).then((data) => {
+                //     setTableData(data)
+                // });
             }
             else if (tableType === "payment-history") {
-                // b57bd7ab-5dc9-11ee-9182-31dbb6fccc0c
-                fetch(`http://localhost:3000/payment/history/${selectedTenant.tenantId}`, {
+                const url = `http://localhost:3000/tenant/${selectedTenant.tenantId}/payment-history`;
+                fetch(url, {
                     method: "GET"
                 }).then(response => {
                     return response.json()
                 }).then((data) => {
                     setTableData(data)
                 });
+                // fetch(`http://localhost:3000/payment/history/${selectedTenant.tenantId}`, {
+                //     method: "GET"
+                // }).then(response => {
+                //     return response.json()
+                // }).then((data) => {
+                //     setTableData(data)
+                // });
             }
         }
-        // if (tableType === "necessity") {
-        //     fetch(`http://localhost:3000/necessity/${selectedTenant.tenantId}`, {
-        //         method: "GET"
-        //     }).then(response => {
-        //         return response.json()
-        //     }).then((data) => {
-        //         setTableData(data)
-        //     });
-        // }
-        // else if (tableType === "payment-history") {
-        //     console.log("tanan")
-        // }
     }, [tableType, selectedTenant, showPopUp]);
 
     if (isLoading) {
