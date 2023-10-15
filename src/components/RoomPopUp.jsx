@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInfo, togglePopUp }) {
     let [tenantList, setTenantList] = useState([]);
     let [tenantFromRoom, setTenantFromRoom] = useState([]);
-    let [tenantInternet, setTenantInternet] = useState(false);
-    let [tenantID, setTenantID] = useState(0);
+    let tenantInternet = useRef(false);
+    let tenantID = useRef(0);
     let tenantRoom = roomInfo.roomNumber;
+
+    // gets tenant list for selectro input
     useEffect(() => {
         if (popUpType === "assign") {
             fetch("http://localhost:3000/tenant/new-tenants", {
@@ -14,7 +16,7 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
             }).then((data) => {
                 setTenantList(data)
                 if (data.length > 0) {
-                    setTenantID(data[0].tenant_id)
+                    tenantID.current = data[0].tenant_id;
                 }
             });
         }
@@ -27,15 +29,15 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
             }).then((data) => {
                 setTenantFromRoom(data)
                 if (data.length > 0) {
-                    setTenantID(data[0].tenant_id)
+                    tenantID.current = data[0].tenant_id;
                 }
                 else {
-                    setTenantID(0)
+                    tenantID.current = 0;
                 }
             });
         }
-    }, [popUpType, showPopUp]);
-    function assignTenant(roomNumber, tenantId, internetTrue) {
+    }, [showPopUp]);
+    function assignTenant(roomNumber, tenantId, isInternetTrue) {
         const url = `http://localhost:3000/room/${roomNumber}/assign-room`;
         fetch(url, {
             method: "POST",
@@ -44,7 +46,7 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
             },
             body: JSON.stringify({
                 tenantId: tenantId,
-                internetTrue: internetTrue
+                isInternetTrue: isInternetTrue
             })
         }).catch((error) => {
             console.log(error)
@@ -79,7 +81,8 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                         }}>X</div>
                     </div>
                     <select name="tenant-name" id="tenant-list" onChange={(e) => {
-                        setTenantID(e.target.value);
+                        tenantID.current = e.target.value;
+                        // setTenantID(e.target.value);
                     }}>
                         {
                             tenantFromRoom.map((element) => {
@@ -89,7 +92,7 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                     </select>
                     <div className="room-action">
                         <button type="button" onClick={() => {
-                            removeTenant(tenantRoom, tenantID);
+                            removeTenant(tenantRoom, tenantID.current);
                             toggleGetList();
                         }}>Remove</button>
                         <button type="button" onClick={togglePopUp}>Back</button>
@@ -108,7 +111,8 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                     }}>X</div>
                 </div>
                 <select name="tenant-name" onChange={(e) => {
-                    setTenantID(e.target.value);
+                    tenantID.current = e.target.value;
+                    // setTenantID(e.target.value);
                 }}>
                     {
                         tenantList.map((element, index) => {
@@ -129,20 +133,15 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                         <label htmlFor="electricity">Electricity</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="internet" id="internet" value={tenantInternet} onChange={(e) => {
-                            if (tenantInternet) {
-                                setTenantInternet(false)
-                            }
-                            else {
-                                setTenantInternet(true)
-                            }
+                        <input type="checkbox" name="internet" id="internet" value={tenantInternet.current} onChange={(e) => {
+                            tenantInternet.current = (tenantInternet.current) ? false : true;
                         }} />
                         <label htmlFor="internet">Internet</label>
                     </div>
                 </div>
                 <div className="room-action">
                     <button type="button" onClick={() => {
-                        assignTenant(tenantRoom, tenantID, tenantInternet);
+                        assignTenant(tenantRoom, tenantID.current, tenantInternet.current);
                         toggleGetList();
                     }}>
                         Assign

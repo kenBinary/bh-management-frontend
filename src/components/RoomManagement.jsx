@@ -2,65 +2,24 @@ import singleBed from "/room-management/single-bed.png"
 import doubleBed from "/room-management/double-bed.png"
 import RoomCard from "./RoomCard";
 import RoomPopUp from "./RoomPopUp";
-import { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
-const SimplePieChart = ({ data }) => {
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-    const RADIAN = Math.PI / 180;
-    const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-        const x = cx + radius * Math.cos(-midAngle * RADIAN);
-        const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-        return (
-            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-                {`${(percent * 100).toFixed(0)}%`}
-            </text>
-        );
-    };
-    return (
-        <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-                <Pie
-                    data={data}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    fill="#8884d8"
-                    labelLine={false}
-                    label={renderCustomizedLabel}
-                    legendType="diamond"
-                >
-                    {data.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-            </PieChart>
-        </ResponsiveContainer>
-    );
-};
+import { useEffect, useState, useRef } from "react";
+import MyPieChart from "./MyPieChart";
+import list from "../scripts/roomList";
 function RoomManagement() {
-    let [initialList, setInitialList] = useState([])
+    let [didMount, setDidMount] = useState(false);
     let [roomList, setRoomList] = useState([]);
+    let roomListFactory = useRef(null);
     let [getList, setGetList] = useState(true);
+    let selectedRoom = useRef({});
+    let [showPopUp, setShowPopUp] = useState(false);
+    let [popUpType, setPopUpType] = useState("assign");
+    let [roomOverview, setRoomOverview] = useState([]);
     let [inputStates, setInputStates] = useState({
         occupied: false,
         vacant: false,
         single: false,
         double: false
     });
-    let [filterStatus, setFilterStatus] = useState({
-        room: false,
-        price: false,
-        type: false
-    });
-    let [selectedRoom, setSelectedRoom] = useState({});
-    let [showPopUp, setShowPopUp] = useState(false);
-    let [popUpType, setPopUpType] = useState("assign");
-    let [roomStatusData, setRoomStatusData] = useState([]);
     function toggleGetList() {
         setGetList((getList) ? false : true);
     }
@@ -76,74 +35,71 @@ function RoomManagement() {
         }
     }
     const removeTenant = (cRoomNumber) => {
-        setSelectedRoom({
+        selectedRoom.current = ({
             roomNumber: cRoomNumber
         });
     }
     const onAssign = (cRoomType, cRoomNumber, cRoomPrice) => {
-        setSelectedRoom({
+        selectedRoom.current = ({
             roomType: cRoomType,
             roomNumber: cRoomNumber,
             roomPrice: cRoomPrice
         })
     }
-    function filterList(data, filterType) {
-        let x = [];
-        if (filterType === 2700 || filterType === 3500) {
-            x = data.filter((element) => {
-                return element.room_fee === filterType
-            });
-        }
-        else if (filterType === 0 || filterType === 1) {
-            x = data.filter((element) => {
-                return element.room_status === filterType
-            });
-        }
-        return x
-    }
     // initial render
     useEffect(() => {
         // get room overview analytics
-        fetch("http://localhost:3000/analytics/room-overview", {
+        const promise1 = fetch("http://localhost:3000/analytics/room-overview", {
             method: "GET"
         }).then((response) => {
             return response.json();
-        }).then((data) => {
-            setRoomStatusData(data);
         });
-        fetch("http://localhost:3000/room", {
+        // get initial room list
+        const promise2 = fetch("http://localhost:3000/room", {
             method: "GET"
         }).then((response) => {
             return response.json();
-        }).then((data) => {
-            setInitialList(data);
+        });
+        Promise.allSettled([
+            promise1, promise2
+        ]).then((response) => {
+            roomListFactory.current = list(response[1].value);
+            setRoomOverview([...response[0].value]);
+            setRoomList([...response[1].value]);
+            setDidMount(true);
         });
     }, []);
-    // get list of rooms
     useEffect(() => {
-        fetch("http://localhost:3000/room", {
-            method: "GET"
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            setRoomList(data);
-        });
-        fetch("http://localhost:3000/analytics/room-overview", {
-            method: "GET"
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            setRoomStatusData(data);
-        });
+        if (didMount) {
+            const promise1 = fetch("http://localhost:3000/room", {
+                method: "GET"
+            }).then((response) => {
+                return response.json();
+            });
+            const promise2 = fetch("http://localhost:3000/analytics/room-overview", {
+                method: "GET"
+            }).then((response) => {
+                return response.json();
+            });
+            Promise.allSettled([
+                promise1, promise2
+            ]).then((response) => {
+                roomListFactory.current = list([...response[0].value]);
+                setRoomList([...response[0].value]);
+                setRoomOverview([...response[1].value]);
+            });
+        }
     }, [getList]);
-
+    if (!didMount) {
+        return <div>Loading...</div>
+    }
     return (
         <section className="room-management">
             <div className="room-filters">
                 <h3>
                     Filter
                     <button onClick={() => {
-                        setRoomList(initialList);
+                        toggleGetList();
                         setInputStates({
                             occupied: false,
                             vacant: false,
@@ -154,19 +110,9 @@ function RoomManagement() {
                 </h3>
                 <h5>Room Status</h5>
                 <div className="filter-option">
-                    <input checked={inputStates.occupied} type="radio" name="status" id="occupied" value="1" onChange={(e) => {
-                        if (filterStatus.room) {
-                            let x = filterList(initialList, parseInt(e.target.value))
-                            console.log(x)
-                            setRoomList(x)
-                        } else {
-                            let x = filterList(roomList, parseInt(e.target.value))
-                            setFilterStatus({
-                                ...filterStatus,
-                                room: true
-                            })
-                            setRoomList(x);
-                        }
+                    <input checked={inputStates.occupied} type="radio" id="occupied" onChange={(e) => {
+                        roomListFactory.current.filterTypeOccupied();
+                        setRoomList(roomListFactory.current.getFilteredList());
                         setInputStates({
                             ...inputStates,
                             occupied: (inputStates.occupied) ? false : true,
@@ -176,18 +122,9 @@ function RoomManagement() {
                     <label htmlFor="occupied">Occupied</label>
                 </div>
                 <div className="filter-option">
-                    <input checked={inputStates.vacant} type="radio" name="status" id="vacant" value="0" onChange={(e) => {
-                        if (filterStatus.room) {
-                            let x = filterList(initialList, parseInt(e.target.value))
-                            setRoomList(x)
-                        } else {
-                            let x = filterList(roomList, parseInt(e.target.value))
-                            setFilterStatus({
-                                ...filterStatus,
-                                room: true
-                            })
-                            setRoomList(x);
-                        }
+                    <input checked={inputStates.vacant} type="radio" id="vacant" value="0" onChange={(e) => {
+                        roomListFactory.current.filterTypeVacant();
+                        setRoomList(roomListFactory.current.getFilteredList());
                         setInputStates({
                             ...inputStates,
                             vacant: (inputStates.vacant) ? false : true,
@@ -199,17 +136,8 @@ function RoomManagement() {
                 <h5>Room Price</h5>
                 <div className="filter-option">
                     <input checked={inputStates.single} type="radio" name="price" id="single-price" value="2700" onChange={(e) => {
-                        if (filterStatus.price) {
-                            let x = filterList(initialList, parseInt(e.target.value))
-                            setRoomList(x)
-                        } else {
-                            let x = filterList(roomList, parseInt(e.target.value))
-                            setFilterStatus({
-                                ...filterStatus,
-                                price: true
-                            })
-                            setRoomList(x);
-                        }
+                        roomListFactory.current.filterPrice2k();
+                        setRoomList(roomListFactory.current.getFilteredList());
                         setInputStates({
                             ...inputStates,
                             single: (inputStates.single) ? false : true,
@@ -220,17 +148,8 @@ function RoomManagement() {
                 </div>
                 <div className="filter-option">
                     <input checked={inputStates.double} type="radio" name="price" id="double-price" value="3500" onChange={(e) => {
-                        if (filterStatus.price) {
-                            let x = filterList(initialList, parseInt(e.target.value))
-                            setRoomList(x)
-                        } else {
-                            let x = filterList(roomList, parseInt(e.target.value))
-                            setFilterStatus({
-                                ...filterStatus,
-                                price: true
-                            })
-                            setRoomList(x);
-                        }
+                        roomListFactory.current.filterPrice3k();
+                        setRoomList(roomListFactory.current.getFilteredList());
                         setInputStates({
                             ...inputStates,
                             double: (inputStates.double) ? false : true,
@@ -241,7 +160,7 @@ function RoomManagement() {
                 </div>
             </div>
             <div className="room-list">
-                <RoomPopUp toggleGetList={toggleGetList} showPopUp={showPopUp} popUpType={popUpType} roomInfo={selectedRoom} isActive={showPopUp} togglePopUp={togglePopUp}></RoomPopUp>
+                <RoomPopUp toggleGetList={toggleGetList} showPopUp={showPopUp} popUpType={popUpType} roomInfo={selectedRoom.current} togglePopUp={togglePopUp}></RoomPopUp>
                 <h3>ROOM LIST</h3>
                 <div className="card-container">
                     {
@@ -254,7 +173,7 @@ function RoomManagement() {
             <div className="room-analytics">
                 <h3>Room Overview</h3>
                 <div className="room-status">
-                    <SimplePieChart data={roomStatusData}></SimplePieChart>
+                    <MyPieChart data={roomOverview}></MyPieChart>
                 </div>
             </div>
         </section>

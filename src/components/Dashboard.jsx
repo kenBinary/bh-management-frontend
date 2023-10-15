@@ -66,6 +66,13 @@ export default function Dashboard() {
             thirdPromise, fourthPromise,
             fifthPromise, sixthPromise
         ]).then((response) => {
+            // console.log(response);
+            // console.log(response[0].value);
+            // console.log(response[1].value);
+            // console.log(response[2].value);
+            // console.log(response[3].value);
+            // console.log(response[4].value);
+            // console.log(response[5].value);
             monthlyRevenue.current = response[0].value;
             yearlyRevenue.current = response[1].value;
             totalTenants.current = response[2].value;

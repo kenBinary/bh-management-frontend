@@ -1,5 +1,5 @@
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
-export default function name({ data }) {
+export default function MyPieChart({ data }) {
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
