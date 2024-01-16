@@ -1,6 +1,13 @@
 $dominant-color: #00adb5;
 $secondary-color: #eeeeee;
 $accent-color: #393e46;
+@mixin selected {
+    border-top: 2px solid rgb(4, 199, 209);
+    background-color: #393e4683;
+}
+.selected-link {
+    @include selected();
+}
 nav {
     background-color: $dominant-color;
     display: flex;
@@ -15,7 +22,7 @@ nav {
         align-items: center;
         cursor: default;
         font-weight: bold;
-        column-gap: .5rem;
+        column-gap: 0.5rem;
         img {
             height: 40px;
             width: 40px;
@@ -48,8 +55,7 @@ nav {
                 filter: invert(100%) sepia(2%) saturate(1524%) hue-rotate(235deg) brightness(117%) contrast(87%);
             }
             &:hover {
-                border-top: 2px solid rgb(4, 199, 209);
-                background-color: #393e4683;
+                @include selected();
             }
         }
     }

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInfo, togglePopUp }) {
+export default function RoomPopUp({ fetchRoomList, showPopUp, popUpType, roomInfo, togglePopUp, fetchRoomOverview }) {
     let [tenantList, setTenantList] = useState([]);
     let [tenantFromRoom, setTenantFromRoom] = useState([]);
     let tenantInternet = useRef(false);
@@ -12,22 +12,22 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
             fetch("http://localhost:3000/tenant/new-tenants", {
                 method: "GET"
             }).then(response => {
-                return response.json()
+                return response.json();
             }).then((data) => {
-                setTenantList(data)
+                setTenantList(data);
                 if (data.length > 0) {
                     tenantID.current = data[0].tenant_id;
                 }
             });
         }
         else {
-            const url = `http://localhost:3000/room/${roomInfo.roomNumber}/tenant`;
+            const url = `http://localhost:3000/room/${tenantRoom}/tenant`;
             fetch(url, {
                 method: "GET"
             }).then(response => {
-                return response.json()
+                return response.json();
             }).then((data) => {
-                setTenantFromRoom(data)
+                setTenantFromRoom(data);
                 if (data.length > 0) {
                     tenantID.current = data[0].tenant_id;
                 }
@@ -36,7 +36,7 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                 }
             });
         }
-    }, [showPopUp]);
+    }, [showPopUp, popUpType, tenantRoom]);
     function assignTenant(roomNumber, tenantId, isInternetTrue) {
         const url = `http://localhost:3000/room/${roomNumber}/assign-room`;
         fetch(url, {
@@ -48,10 +48,16 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                 tenantId: tenantId,
                 isInternetTrue: isInternetTrue
             })
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error("Response not ok");
+            }
         }).catch((error) => {
-            console.log(error)
+            console.log(error);
         }).finally(() => {
             togglePopUp();
+            fetchRoomList();
+            fetchRoomOverview();
         });
     }
     function removeTenant(roomNumber, tenantId) {
@@ -65,9 +71,11 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                 tenantId: tenantId,
             })
         }).catch((error) => {
-            console.log(error)
+            console.log(error);
         }).finally(() => {
             togglePopUp();
+            fetchRoomList();
+            fetchRoomOverview();
         });
     }
     if (popUpType === "remove") {
@@ -86,20 +94,19 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                     }}>
                         {
                             tenantFromRoom.map((element) => {
-                                return <option key={element.tenant_id} value={element.tenant_id || ''}>{element.first_name + " " + element.last_name}</option>
+                                return <option key={element.tenant_id} value={element.tenant_id || ''}>{element.first_name + " " + element.last_name}</option>;
                             })
                         }
                     </select>
                     <div className="room-action">
                         <button type="button" onClick={() => {
                             removeTenant(tenantRoom, tenantID.current);
-                            toggleGetList();
                         }}>Remove</button>
                         <button type="button" onClick={togglePopUp}>Back</button>
                     </div>
                 </div>
             </div >
-        )
+        );
     }
     return (
         <div className={"pop-up-background" + ((showPopUp) ? " " : " hide")}>
@@ -115,8 +122,8 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                     // setTenantID(e.target.value);
                 }}>
                     {
-                        tenantList.map((element, index) => {
-                            return <option key={element.tenant_id} value={element.tenant_id || ''}>{element.first_name + " " + element.last_name}</option>
+                        tenantList.map((element) => {
+                            return <option key={element.tenant_id} value={element.tenant_id || ''}>{element.first_name + " " + element.last_name}</option>;
                         })
                     }
                 </select>
@@ -133,7 +140,7 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                         <label htmlFor="electricity">Electricity</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="internet" id="internet" value={tenantInternet.current} onChange={(e) => {
+                        <input type="checkbox" name="internet" id="internet" value={tenantInternet.current} onChange={() => {
                             tenantInternet.current = (tenantInternet.current) ? false : true;
                         }} />
                         <label htmlFor="internet">Internet</label>
@@ -142,7 +149,6 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                 <div className="room-action">
                     <button type="button" onClick={() => {
                         assignTenant(tenantRoom, tenantID.current, tenantInternet.current);
-                        toggleGetList();
                     }}>
                         Assign
                     </button>
@@ -150,5 +156,5 @@ export default function RoomPopUp({ toggleGetList, showPopUp, popUpType, roomInf
                 </div>
             </div>
         </div >
-    )
+    );
 }

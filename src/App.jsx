@@ -1,16 +1,15 @@
-import { Route, Routes, useSearchParams } from "react-router-dom";
-import NavBar from './components/NavBar'
-import './styles/header-styles.css';
+import { Route, Routes } from "react-router-dom";
+import NavBar from './components/NavBar';
 import Dashboard from './components/Dashboard';
 import './styles/dashboard-style.css';
 import TenantManagement from './components/TenantManagement';
-import './styles/tenant-management-style.css'
+import './styles/tenant-management-style.css';
 import PaymentManagement from './components/PaymentManagement';
 import './styles/payment-management-style.css';
 import RoomManagement from './components/RoomManagement';
-import './styles/room-management-style.css'
+import './styles/room-management-style.css';
 import Login from "./components/Login";
-import './styles/login-style.css'
+import './styles/login-style.css';
 import { useState } from "react";
 
 function App() {
@@ -30,7 +29,7 @@ function App() {
           <Route path="/payments" element={<PaymentManagement></PaymentManagement>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
         </Routes>
-      </>)
+      </>);
   }
   return (
     <>
@@ -44,7 +43,7 @@ function App() {
         <Route path="/login" element={<Login></Login>}></Route>
       </Routes> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

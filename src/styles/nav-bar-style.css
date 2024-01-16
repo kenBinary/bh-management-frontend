@@ -1,3 +1,8 @@
+.selected-link {
+  border-top: 2px solid rgb(4, 199, 209);
+  background-color: rgba(57, 62, 70, 0.5137254902);
+}
+
 nav {
   background-color: #00adb5;
   display: flex;
@@ -70,4 +75,4 @@ nav > .user-actions > div img {
   filter: invert(100%) sepia(2%) saturate(1524%) hue-rotate(235deg) brightness(117%) contrast(87%);
 }
 
-/*# sourceMappingURL=header-styles.css.map */
+/*# sourceMappingURL=nav-bar-style.css.map */

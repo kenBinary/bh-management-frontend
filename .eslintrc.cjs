@@ -16,5 +16,12 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'react-hooks/rules-of-hooks': 'warn',
+    'react-hooks/exhaustive-deps': 'warn',
+    'react/prop-types': 0,
+    'react/jsx-no-undef': 'warn',
+    'react/jsx-no-duplicate-props': 1,
+    'semi': ['warn', 'always'],
+    'no-unused-vars': 'warn',
   },
 }

@@ -1,4 +1,4 @@
-import tenant from "/public/tenant-management/tenant.svg";
+import tenant from "/tenant-management/tenant.svg";
 import TableData from "./TableData";
 import TenantPopUp from "./TenantPopUp";
 import { useEffect, useState } from "react";
