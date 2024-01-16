@@ -23,26 +23,26 @@ export default function NavBar({ updateAuth }) {
                 Roomster
             </div>
             <ul>
-                <li className={(selectedLink === "Dashboard") ? "selected-link" : ""}>
-                    <Link to="/" onClick={handleClick}>
+                <li className={(selectedLink === "Dashboard") ? "selected-link" : ""} onClick={handleClick}>
+                    <Link to="/" >
                         <img src={dashboard} alt="system logo" />
                         Dashboard
                     </Link>
                 </li>
-                <li className={(selectedLink === "Rooms") ? "selected-link" : ""}>
-                    <Link to="/rooms" onClick={handleClick}>
+                <li className={(selectedLink === "Rooms") ? "selected-link" : ""} onClick={handleClick}>
+                    <Link to="/rooms" >
                         <img src={rooms} alt="system logo" />
                         Rooms
                     </Link>
                 </li>
-                <li className={(selectedLink === "Tenants") ? "selected-link" : ""}>
-                    <Link to="/tenants" onClick={handleClick}>
+                <li className={(selectedLink === "Tenants") ? "selected-link" : ""} onClick={handleClick}>
+                    <Link to="/tenants" >
                         <img src={tenants} alt="system logo" />
                         Tenants
                     </Link>
                 </li>
-                <li className={(selectedLink === "Payments") ? "selected-link" : ""}>
-                    <Link to="/payments" onClick={handleClick}>
+                <li className={(selectedLink === "Payments") ? "selected-link" : ""} onClick={handleClick}>
+                    <Link to="/payments" >
                         <img src={payments} alt="system logo" />
                         Payments
                     </Link>

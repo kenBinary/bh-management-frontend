@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import NavBar from './components/NavBar';
-import Dashboard from './components/Dashboard';
-import './styles/dashboard-style.css';
+import Dashboard from "./pages/Dashboard";
 import TenantManagement from './components/TenantManagement';
 import './styles/tenant-management-style.css';
 import PaymentManagement from './components/PaymentManagement';
